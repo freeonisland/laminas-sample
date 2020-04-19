@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="LazyFrame" xsi:noNamespaceSchemaLocation="phpcs.xsd">
+    <description>The coding standard for PHP</description>
+
+    <file>src</file>
+
+    <arg name="basepath" value="."/>
+    <arg name="colors"/>
+    <arg name="parallel" value="75"/>
+    <arg value="np"/>
+
+    <!-- Don't hide tokenizer exceptions -->
+    <rule ref="Internal.Tokenizer.Exception">
+        <type>error</type>
+    </rule>
+
+    <!-- Check var names, but we don't want leading underscores for private vars -->
+    <!--rule ref="Squiz.NamingConventions.ValidVariableName"/>
+    <rule ref="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore">
+        <severity>0</severity>
+    </rule-->
+
+    <rule ref="PEAR">
+        <exclude name="PEAR.Commenting"/>
+        <!--exclude name="PEAR.NamingConventions.PrivateNoUnderscore"/-->
+    </rule>
+
+    <!-- relative path from PHPCS source location -->
+    <config name="installed_paths" value="vendor/slevomat/coding-standard"/>
+
+    <!-- specific sniffs to include -->
+    <rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/TypeHints/DeclareStrictTypesSniff.php" />
+
+</ruleset>

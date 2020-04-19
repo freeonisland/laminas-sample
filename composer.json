@@ -1,0 +1,38 @@
+{
+    "name": "freeonisland/zend-laminas-ex",
+    "description": "Exemples d'utilisation du framework et des modules de Zend-Laminas",
+    "type": "tests",
+    "license": "none",
+    "authors": [
+        {
+            "name": "freeonisland",
+            "email": "freeonisland@yahoo.fr"
+        }
+    ],
+    "config": {
+        "bin-dir": "bin",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "laminas/laminas-ldap": "^2.10",
+        "laminas/laminas-modulemanager": "^2.8",
+        "laminas/laminas-mvc": "^3.1",
+        "laminas/laminas-permissions-acl": "^2.7"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "^1.9",
+        "kint-php/kint": "^3.3",
+        "laminas/laminas-development-mode": "^3.2",
+        "phpmd/phpmd": "^2.8",
+        "phpspec/phpspec": "^6.1",
+        "phpunit/phpunit": "^8.5",
+        "slevomat/coding-standard": "^6.2",
+        "squizlabs/php_codesniffer": "^3.5"
+    },
+    "scripts": {
+        "check": "phpcs -p src",
+        "fix": "phpcbf -v src",
+        "md": "phpmd src text cleancode, codesize, controversial, design, naming, unusedcode"
+    }
+}
