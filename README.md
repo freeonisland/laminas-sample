@@ -1,3 +1,2 @@
-# zend-laminas-ex
+# Zend-laminas-ex
 Exemples d'utilisation du framework Zend-Laminas
-

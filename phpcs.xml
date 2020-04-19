@@ -1,34 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="LazyFrame" xsi:noNamespaceSchemaLocation="phpcs.xsd">
-    <description>The coding standard for PHP</description>
+<?xml version="1.0"?>
+<ruleset name="Laminas Coding Standard">
+    <description>Laminas Coding Standard</description>
 
-    <file>src</file>
-
-    <arg name="basepath" value="."/>
+    <!-- display progress -->
+    <arg value="p"/>
     <arg name="colors"/>
-    <arg name="parallel" value="75"/>
-    <arg value="np"/>
+    <arg name="extensions" value="php,dist,phtml"/>
 
-    <!-- Don't hide tokenizer exceptions -->
-    <rule ref="Internal.Tokenizer.Exception">
-        <type>error</type>
+    <!-- inherit rules from: -->
+    <rule ref="PSR12"/>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="Generic.Formatting.SpaceAfterNot"/>
+    <rule ref="Squiz.WhiteSpace.OperatorSpacing">
+        <properties>
+            <property name="ignoreNewlines" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
+        <properties>
+            <property name="ignoreBlankLines" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="PSR1.Files.SideEffects">
+        <exclude-pattern>public/index.php</exclude-pattern>
     </rule>
 
-    <!-- Check var names, but we don't want leading underscores for private vars -->
-    <!--rule ref="Squiz.NamingConventions.ValidVariableName"/>
-    <rule ref="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore">
-        <severity>0</severity>
-    </rule-->
+    <!-- Paths to check -->
+    <file>config</file>
+    <file>module</file>
+    <file>public/index.php</file>
 
-    <rule ref="PEAR">
-        <exclude name="PEAR.Commenting"/>
-        <!--exclude name="PEAR.NamingConventions.PrivateNoUnderscore"/-->
-    </rule>
-
-    <!-- relative path from PHPCS source location -->
-    <config name="installed_paths" value="vendor/slevomat/coding-standard"/>
-
+    <!-- ADDED -->
     <!-- specific sniffs to include -->
     <rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/TypeHints/DeclareStrictTypesSniff.php" />
-
 </ruleset>

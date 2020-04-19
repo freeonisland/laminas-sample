@@ -1,0 +1,2 @@
+composer create-project -s dev laminas/laminas-mvc-skeleton <DIR>
+docker exec -it phpfpm "bash"
