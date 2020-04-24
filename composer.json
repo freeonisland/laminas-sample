@@ -1,6 +1,6 @@
 {
     "name": "freeonisland/zend-laminas-ex",
-    "description": "Exemples d'utilisation du framework et des modules de Zend-Laminas",
+    "description": "Essais d'utilisation du framework et des modules de Zend-Laminas",
     "type": "tests",
     "license": "none",
     "authors": [
