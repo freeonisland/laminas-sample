@@ -6,7 +6,7 @@ use Laminas\Ldap\Dn;
 use Laminas\Ldap\Ldap;
 use Laminas\Ldap\Attribute;
 
-class LaminasManager extends AbstractLdapManager 
+class LdapManager extends AbstractLdapManager 
 {
     private $ldap;
     

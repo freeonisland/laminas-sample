@@ -14,9 +14,9 @@ class ServiceFactory
         return $reader->fromFile(__DIR__ . '/../../config/config.yml');
     }
 
-    public static function createLaminasManager()
+    public static function createLdapManager()
     {
         $c = self::getConfig();
-        return new \Ldap\Manager\LaminasManager($c['LDAP_SERVER'], $c['LDAP_DN'], $c['LDAP_PASSWORD']);
+        return new \Ldap\Manager\LdapManager($c['LDAP_SERVER'], $c['LDAP_DN'], $c['LDAP_PASSWORD']);
     }
 }

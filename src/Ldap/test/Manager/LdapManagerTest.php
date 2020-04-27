@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace LdapTest\Manager;
 
 use Laminas\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
-use Ldap\Manager\LaminasManager;
+use Ldap\Manager\LdapManager;
 
 class LdapManagerTest extends AbstractHttpControllerTestCase
 {
@@ -26,8 +26,8 @@ class LdapManagerTest extends AbstractHttpControllerTestCase
 
     public function testCanConnect()
     {
-        $laminas = \Ldap\Factory\ServiceFactory::createLaminasManager();
-        $conn = $laminas->connect();
+        $ldap = \Ldap\Factory\ServiceFactory::createLdapManager();
+        $conn = $ldap->connect();
         $this->assertTrue($conn);
     }
 }
