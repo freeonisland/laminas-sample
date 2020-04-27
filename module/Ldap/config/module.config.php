@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Application;
+namespace Ldap;
 
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
@@ -20,7 +20,7 @@ return [
             'home' => [
                 'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/',
+                    'route'    => '/ldap',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
@@ -42,7 +42,7 @@ return [
         'exception_template'       => 'error/index',
         'template_map' => [
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
+            'ldap/index/index' => __DIR__ . '/../view/ldap/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ],

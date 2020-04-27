@@ -35,17 +35,20 @@
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "module/Application/src/"
+            "Application\\": "module/Application/src/",
+            "Ldap\\": "module/Ldap/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ApplicationTest\\": "module/Application/test/"
+            "ApplicationTest\\": "module/Application/test/",
+            "LdapTest\\": "module/Ldap/test/"
         }
     },
     "scripts": {
-        "cs-check": "phpcs",
-        "cs-fix": "phpcbf",
+        "check": "phpcs",
+        "fix": "phpcbf",
+
         "development-disable": "laminas-development-mode disable",
         "development-enable": "laminas-development-mode enable",
         "development-status": "laminas-development-mode status",
@@ -56,6 +59,6 @@
         "serve": "php -S 0.0.0.0:8080 -t public",
         "test": "phpunit --color=always",
 
-        "md": "phpmd src text cleancode, codesize, controversial, design, naming, unusedcode"
+        "md": "phpmd module text cleancode, codesize, controversial, design, naming, unusedcode"
     }
 }

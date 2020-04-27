@@ -7,12 +7,21 @@
  */
 
 declare(strict_types=1);
-namespace Application;
 
-class Module
+namespace Ldap\Controller;
+
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+
+class IndexController extends AbstractActionController
 {
-    public function getConfig() : array
+    public function indexAction()
     {
-        return include __DIR__ . '/../config/module.config.php';
+        return new ViewModel();
+    }
+
+    public function startAction()
+    {
+        return new ViewModel();
     }
 }
