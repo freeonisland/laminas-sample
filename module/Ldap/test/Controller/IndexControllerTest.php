@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace LdapTest\Controller;
 
-use Application\Controller\IndexController;
+use Ldap\Controller\IndexController;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
@@ -34,12 +34,12 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
 
     public function testIndexActionCanBeAccessed()
     {
-        $this->dispatch('/', 'GET');
+        $this->dispatch('/ldap', 'GET');
         $this->assertResponseStatusCode(200);
-        $this->assertModuleName('application');
+        $this->assertModuleName('ldap');
         $this->assertControllerName(IndexController::class); // as specified in router's controller name alias
         $this->assertControllerClass('IndexController');
-        $this->assertMatchedRouteName('home');
+        $this->assertMatchedRouteName('ldap');
     }
 
     public function testIndexActionViewModelTemplateRenderedWithinLayout()

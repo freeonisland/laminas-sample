@@ -46,9 +46,6 @@
         }
     },
     "scripts": {
-        "check": "phpcs",
-        "fix": "phpcbf",
-
         "development-disable": "laminas-development-mode disable",
         "development-enable": "laminas-development-mode enable",
         "development-status": "laminas-development-mode status",
@@ -56,9 +53,10 @@
             "@development-enable",
             "php bin/update-gitignore.php"
         ],
+        "check": "phpcs",
+        "fix": "phpcbf",
+        "md": "phpmd module text cleancode, codesize, controversial, design, naming, unusedcode",
         "serve": "php -S 0.0.0.0:8080 -t public",
-        "test": "phpunit --color=always",
-
-        "md": "phpmd module text cleancode, codesize, controversial, design, naming, unusedcode"
+        "test": "phpunit -v --color=always"
     }
 }
