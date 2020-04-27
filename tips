@@ -1,2 +1,15 @@
 composer create-project -s dev laminas/laminas-mvc-skeleton <DIR>
 docker exec -it phpfpm "bash"
+
+[LDAP]
+#http://phpldapadmin.sourceforge.net/wiki/index.php/LDAP_server_definitions
+#http://phpldapadmin.sourceforge.net/wiki/index.php/Config.php
+        
+[DOCKER]
+# laminas-NOT-USED:
+#     build: docker/conf/apache
+#     dockerfile: Dockerfile
+#     ports:
+#         - "8080:80"
+#     volumes:
+#         - .:/var/www
