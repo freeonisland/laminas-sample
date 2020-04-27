@@ -17,12 +17,15 @@
     "require": {
         "php": "^7.2",
         "laminas/laminas-component-installer": "^2.1",
+        "laminas/laminas-config": "^3.3",
+        "laminas/laminas-config-aggregator": "^1.2",
         "laminas/laminas-development-mode": "^3.2",
         "laminas/laminas-ldap": "^2.10",
         "laminas/laminas-modulemanager": "^2.8",
         "laminas/laminas-mvc": "^3.1",
         "laminas/laminas-permissions-acl": "^2.7",
-        "laminas/laminas-test": "^3.4"
+        "laminas/laminas-test": "^3.4",
+        "symfony/yaml": "^5.0"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9",
@@ -35,14 +38,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "module/Application/src/",
-            "Ldap\\": "module/Ldap/src/"
+            "Application\\": "src/Application/src/",
+            "Ldap\\": "src/Ldap/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ApplicationTest\\": "module/Application/test/",
-            "LdapTest\\": "module/Ldap/test/"
+            "ApplicationTest\\": "src/Application/test/",
+            "LdapTest\\": "src/Ldap/test/"
         }
     },
     "scripts": {

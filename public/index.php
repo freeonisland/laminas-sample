@@ -17,7 +17,7 @@ chdir(dirname(__DIR__));
  * Easier way
  */
 define('ROOT', realpath(__DIR__.'/..'));
-define('APPLICATION', ROOT . '/module/Application');
+define('APPLICATION', ROOT . '/src/Application');
 
 // Decline static file requests back to the PHP built-in webserver
 if (php_sapi_name() === 'cli-server') {
@@ -32,6 +32,10 @@ if (php_sapi_name() === 'cli-server') {
 include __DIR__ . '/../vendor/autoload.php';
 
 
+function g($c)
+{
+    s(get_class_methods($c));
+}
 
 /****************
  * Configuration

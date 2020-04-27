@@ -26,8 +26,8 @@ services:
             - zend
     
     ldap-server:
-        build: docker/conf/ldap
-        container_name: ldap-server
+        build: .docker/conf/ldap
+        #container_name: ldap-server
         ports:
             - 389:389
             - 636:636
@@ -44,7 +44,7 @@ services:
         #    PHPLDAPADMIN_LDAP_HOSTS: ldap-server
         #PHPLDAP_IP=$(docker inspect -f "{{ .NetworkSettings.IPAddress }}" phpldapadmin-service)
         volumes:
-            - ${WEBSERVER}/${DIRECTORY}/docker/conf/ldapadmin/config.php:/container/service/phpldapadmin/assets/config/config.php
+            - ${WEBSERVER}/${DIRECTORY}/.docker/conf/ldapadmin/config.php:/container/service/phpldapadmin/assets/config/config.php
         depends_on:
            - ldap-server
         command: --copy-service

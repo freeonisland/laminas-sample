@@ -12,6 +12,7 @@ namespace Application;
 
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
+use Laminas\Stdlib\ArrayUtils;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -62,5 +63,19 @@ return [
         'template_path_stack' => [
             __DIR__ . '/../view',
         ],
-    ],
+    ]
 ];
+
+/*
+return [
+    
+    'controllers' => [
+        'abstract_factories' => [
+            LazyControllerAbstractFactory::class,
+        ],
+        'factories' => [
+            'MyModule\Controller\FooController' => LazyControllerAbstractFactory::class,
+        ],
+    ],
+    
+];*/
