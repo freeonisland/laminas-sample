@@ -105,7 +105,6 @@ class UserController extends AbstractController
     {
         $lm = $this->getModule('LaminasManager');
         $user=$lm->get($userId);
-             
         
         if(count($this->post)) {
             // Delete data ...
