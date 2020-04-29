@@ -11,9 +11,24 @@ declare(strict_types=1);
 namespace Application;
 
 use Laminas\Router\Http\Literal;
+use Laminas\Router\Http\Regex;
 use Laminas\Router\Http\Segment;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\ServiceManager\Factory\InvokableFactory;
+
+/**
+ * https://docs.laminas.dev/laminas-router/routing/
+ */
+
+ $route = Regex::factory([
+    'regex' => '/blog/(?<id>[a-zA-Z0-9_-]+)(\.(?<format>(json|html|xml|rss)))?',
+    'defaults' => [
+        'controller' => 'Application\Controller\BlogController',
+        'action'     => 'view',
+        'format'     => 'html',
+    ],
+    'spec' => '/blog/%id%.%format%',
+]);
 
 return [
     'router' => [
@@ -28,6 +43,20 @@ return [
                     ],
                 ],
             ],
+            /**
+             * https://docs.laminas.dev/laminas-router/routing/#laminas-router-http-regex
+             */
+            /*'ldap2' => [
+                'type'    => Regex::factory([
+                    'regex' => '/blog/(?<id>[a-zA-Z0-9_-]+)(\.(?<format>(json|html|xml|rss)))?',
+                    'defaults' => [
+                        'controller' => 'Application\Controller\BlogController',
+                        'action'     => 'view',
+                        'format'     => 'html',
+                    ],
+                    'spec' => '/blog/%id%.%format%',
+                ])
+            ],*/
             'ldap' => [
                 'type'    => Literal::class,
                 'options' => [
