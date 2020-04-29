@@ -19,17 +19,6 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 /**
  * https://docs.laminas.dev/laminas-router/routing/
  */
-
- $route = Regex::factory([
-    'regex' => '/blog/(?<id>[a-zA-Z0-9_-]+)(\.(?<format>(json|html|xml|rss)))?',
-    'defaults' => [
-        'controller' => 'Application\Controller\BlogController',
-        'action'     => 'view',
-        'format'     => 'html',
-    ],
-    'spec' => '/blog/%id%.%format%',
-]);
-
 return [
     'router' => [
         'routes' => [
@@ -43,29 +32,24 @@ return [
                     ],
                 ],
             ],
-            /**
+            /*
              * https://docs.laminas.dev/laminas-router/routing/#laminas-router-http-regex
+             * /ldap/001-some-blog_slug-here.html
+             * 
+             * (?<PARAM>regex)?
+             * 'regex' => '/ldap/(?<id>[a-zA-Z0-9_-]+)(\.(?<format>(json|html|xml|rss)))?'
+             * 'spec' => '/ldap/%id%.%format%',
              */
-            /*'ldap2' => [
-                'type'    => Regex::factory([
-                    'regex' => '/blog/(?<id>[a-zA-Z0-9_-]+)(\.(?<format>(json|html|xml|rss)))?',
-                    'defaults' => [
-                        'controller' => 'Application\Controller\BlogController',
-                        'action'     => 'view',
-                        'format'     => 'html',
-                    ],
-                    'spec' => '/blog/%id%.%format%',
-                ])
-            ],*/
             'ldap' => [
-                'type'    => Literal::class,
+                'type'    => Regex::class,
                 'options' => [
-                    'route'    => '/ldap',
+                    'regex' => '/ldap/?(?<action>[a-z]+)?/?(?<params>[\/a-z]+)?',
                     'defaults' => [
-                        'controller' => \Ldap\Controller\IndexController::class,
-                        'action'     => 'index',
+                        'controller' => 'Ldap\Controller\IndexController',
+                        'action'     => 'index'
                     ],
-                ],
+                    'spec' => '/ldap'
+                ]
             ]
         ],
     ],
@@ -84,6 +68,7 @@ return [
         'template_map' => [
             'application/index/index' => __DIR__ . '/../view/index/index.phtml',
             'ldap/index/index'        => __DIR__ . '/../../Ldap/view/index/index.phtml',
+            'ldap/index/start'        => __DIR__ . '/../../Ldap/view/index/start.phtml',
 
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',

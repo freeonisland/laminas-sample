@@ -39,4 +39,49 @@ class IndexController extends AbstractActionController
     {
         return new ViewModel();
     }
+
+    /*
+     * event
+     * 0 => string 'setApplication' (length=14)
+  1 => string 'getApplication' (length=14)
+  2 => string 'getRouter' (length=9)
+  3 => string 'setRouter' (length=9)
+  4 => string 'getRouteMatch' (length=13)
+  5 => string 'setRouteMatch' (length=13)
+  6 => string 'getRequest' (length=10)
+  7 => string 'setRequest' (length=10)
+  8 => string 'getResponse' (length=11)
+  9 => string 'setResponse' (length=11)
+  10 => string 'setViewModel' (length=12)
+  11 => string 'getViewModel' (length=12)
+  12 => string 'getResult' (length=9)
+  13 => string 'setResult' (length=9)
+  14 => string 'isError' (length=7)
+  15 => string 'setError' (length=8)
+  16 => string 'getError' (length=8)
+  17 => string 'getController' (length=13)
+  18 => string 'setController' (length=13)
+  19 => string 'getControllerClass' (length=18)
+  20 => string 'setControllerClass' (length=18)
+  21 => string '__construct' (length=11)
+  22 => string 'getName' (length=7)
+  23 => string 'getTarget' (length=9)
+  24 => string 'setParams' (length=9)
+  25 => string 'getParams' (length=9)
+  26 => string 'getParam' (length=8)
+  27 => string 'setName' (length=7)
+  28 => string 'setTarget' (length=9)
+  29 => string 'setParam' (length=8)
+  30 => string 'stopPropagation' (length=15)
+  31 => string 'propagationIsStopped' (length=20)
+     */
+    public function startAction()
+    {
+        $d = $this->getEvent()->getRouteMatch();
+        //$m = $d->getMatchedRouteName();
+        $p = $d->getParams();
+        s($p);
+        
+        return new ViewModel();
+    }
 }
