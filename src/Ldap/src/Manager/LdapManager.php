@@ -6,11 +6,7 @@ use Laminas\Ldap\Dn;
 use Laminas\Ldap\Ldap;
 use Laminas\Ldap\Attribute;
 
-class LdapManager extends AbstractLdapManager 
-{
-    private $ldap;
-    
-    /*  
+/*  
      * $options = [
         'host'              => 's0.foo.net',
         'username'          => 'CN=user1,DC=foo,DC=net',
@@ -53,10 +49,15 @@ search(/ * ... * /) : Collection 	Searches the LDAP tree with the given $filter 
     getRootDse() : Node\RootDse 	Returns the RootDSE for the current server.
     getSchema() : Node\Schema
     */
+class LdapManager extends AbstractLdapManager 
+{
+    private $ldap;
+    
     public function connect(): bool
     {
         $options = [
             'host'              => $this->ldapServer,
+            'port'              => 389,
             'username'          => $this->ldapDn,
             'password'          => $this->ldapPass,
             'bindRequiresDn'    => true,
@@ -64,15 +65,17 @@ search(/ * ... * /) : Collection 	Searches the LDAP tree with the given $filter 
             'baseDn'            => 'cn=Sales,dc=my-company,dc=com',
             'networkTimeout'    => 30
         ];
-        
         $this->ldap = new Ldap($options);
-        //$acctname = $ldap->getCanonicalAccountName('abaker', Ldap::ACCTNAME_FORM_DN);
+        
+        //$acctname = $this->ldap->getCanonicalAccountName('admin', Ldap::ACCTNAME_FORM_DN);
         //echo "$acctname\n";
+        
+
         try {
             if ($this->ldap) {
                 return true;
             } else {
-                echo "Can't connect to LDAP Laminas";
+                echo "Can't connect to LDAP Laminas";   
             }
         } catch(\ErrorException $e) { echo "LDAP EXCEPTION: ".$e->getMessage(); }
         return false;

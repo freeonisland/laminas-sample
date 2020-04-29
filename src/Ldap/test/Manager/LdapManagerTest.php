@@ -26,7 +26,7 @@ class LdapManagerTest extends AbstractHttpControllerTestCase
 
     public function testCanConnect()
     {
-        $ldap = \Ldap\Factory\ServiceFactory::createLdapManager();
+        $ldap = \Ldap\Factory\ServiceFactory::createSimpleManager();
         $conn = $ldap->connect();
         $this->assertTrue($conn);
     }

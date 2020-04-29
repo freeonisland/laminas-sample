@@ -1,25 +1,33 @@
 <?php
 
-namespace App\Storage\Ldap\Controller;
+declare(strict_types=1);
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Ldap\Entity\User;
-use Ldap\Entity\LaminasRepository;
+namespace Ldap\Controller;
 
-class UserController extends AbstractController
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Ldap\Factory\ServiceFactory;
+
+class UserController extends AbstractActionController
 {
     /**
      * 
      */
     public function listAction()
     {
-        $lm = $this->getModule('LaminasManager');
-        $schemas = $this->schemas();
+        $lm = ServiceFactory::createLdapManager();
         $res = $lm->search('objectClass=person');
+        
+        //s($schemas);
+        /*
+        
 
         return [
             'users' => $res??[]
-        ];
+        ];*/
+        return new ViewModel([
+            'users' => $res??[]
+        ]);
     }
 
     /**
@@ -27,7 +35,7 @@ class UserController extends AbstractController
      */
     public function createAction()
     {   
-        $lm = $this->getModule('LaminasManager');
+        /*$lm = $this->getModule('LaminasManager');
         $schemas = $lm->getSchemas();
         
         if ($this->post && 'yes' !== $this->post['onlychange']) {
@@ -39,7 +47,7 @@ class UserController extends AbstractController
         }
 
         $comm = 'ssh -o StrictHostKeyChecking=no root@ldap-server "ldapcompare" 2>&1';
-        $exec=exec($comm, $out);
+        $exec=exec($comm, $out);*/
         //s($out);
         /*$exec=shell_exec($comm);
         s($exec);
@@ -55,14 +63,15 @@ class UserController extends AbstractController
         s($output);
         s($return_var);*/
 
-        return [
+        /*return [
             'user' => [
                 'cn'=>[''],
                 'sn'=>['']
             ],
             'schemas' => $schemas,
             'post' => $this->post
-        ]; 
+        ]; */
+        return new ViewModel();
     }
 
     public function updateAction(string $userId)
@@ -111,7 +120,7 @@ class UserController extends AbstractController
             s($this->post);
             if('yes'===$this->post['confirm']) {
                 $lm->delete($userId);
-                \Flight::redirect('/ldap/user/list');
+                //redirect
                 die();
             }
         }
