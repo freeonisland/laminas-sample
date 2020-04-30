@@ -67,10 +67,6 @@ class LdapManager extends AbstractLdapManager
         ];
         $this->ldap = new Ldap($options);
         
-        //$acctname = $this->ldap->getCanonicalAccountName('admin', Ldap::ACCTNAME_FORM_DN);
-        //echo "$acctname\n";
-        
-
         try {
             if ($this->ldap) {
                 return true;

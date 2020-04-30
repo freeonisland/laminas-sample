@@ -13,14 +13,15 @@ class SimpleManager// extends AbstractLdapManager
         $ldappass = 'JonSn0w';  // Mot de passe associé
 
         // Connexion au serveur LDAP
-        $ldapconn = ldap_connect("ldap://ldap-server")
+        $ldapconn = ldap_connect("ldap://ldap-server:389")
             or die("Impossible de se connecter au serveur LDAP.");
 
         ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
 
         if ($ldapconn) {
             // Connexion au serveur LDAP
-            $ldapbind = ldap_bind($ldapconn, $ldaprdn, $ldappass);
+            $ldapbind = ldap_bind($ldapconn, $ldaprdn, $ldappass)
+                or die('Impossible to bind server');
             s($ldapbind);
 
             // Vérification de l'authentification

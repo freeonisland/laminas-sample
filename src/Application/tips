@@ -14,7 +14,9 @@ docker exec -it phpfpm "bash"
 #     volumes:
 #         - .:/var/www
 
-/* $this
+/* 
+controller
+
      * 0 => string (11) "indexAction"
     1 => string (14) "notFoundAction"
     2 => string (10) "onDispatch"
@@ -33,8 +35,12 @@ docker exec -it phpfpm "bash"
     15 => string (19) "getMethodFromAction"
      */
     
+
+
     /*
-     * event
+     * 
+     event
+     
      * 0 => string 'setApplication' (length=14)
   1 => string 'getApplication' (length=14)
   2 => string 'getRouter' (length=9)

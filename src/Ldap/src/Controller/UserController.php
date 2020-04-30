@@ -18,13 +18,6 @@ class UserController extends AbstractActionController
         $lm = ServiceFactory::createLdapManager();
         $res = $lm->search('objectClass=person');
         
-        //s($schemas);
-        /*
-        
-
-        return [
-            'users' => $res??[]
-        ];*/
         return new ViewModel([
             'users' => $res??[]
         ]);
@@ -35,43 +28,28 @@ class UserController extends AbstractActionController
      */
     public function createAction()
     {   
-        /*$lm = $this->getModule('LaminasManager');
+        $lm = ServiceFactory::createLdapManager();
         $schemas = $lm->getSchemas();
+
+        $post = $this->getRequest()->getPost();
         
-        if ($this->post && 'yes' !== $this->post['onlychange']) {
+        if ($post && count($post) && 'yes' !== $post['onlychange']) {
             // Create data ...
-            $lm->add('person', [
-                'cn' => $this->post['cn'],
-                'sn' => $this->post['sn']
-            ]);
+            if($post['cn'])
+                $lm->add('person', [
+                    'cn' => $post['cn'],
+                    'sn' => $post['sn']
+                ]);
         }
 
-        $comm = 'ssh -o StrictHostKeyChecking=no root@ldap-server "ldapcompare" 2>&1';
-        $exec=exec($comm, $out);*/
-        //s($out);
-        /*$exec=shell_exec($comm);
-        s($exec);
-        s($out);
-        $exec=system($comm);
-        s($exec);
-        $exec=`ssh`;
-        s($exec);
-        $exec=passthru($comm);
-        s($exec);
-
-        exec("ping -c 1 yhoo.dsd 2>&1", $output, $return_var);
-        s($output);
-        s($return_var);*/
-
-        /*return [
+        return new ViewModel([
             'user' => [
                 'cn'=>[''],
                 'sn'=>['']
             ],
             'schemas' => $schemas,
-            'post' => $this->post
-        ]; */
-        return new ViewModel();
+            'post' => $post
+        ]);
     }
 
     public function updateAction(string $userId)

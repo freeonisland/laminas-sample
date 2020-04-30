@@ -2,10 +2,10 @@
 <ul>
     <?php if($users): ?>
         <?php foreach($users as $user): ?>
-            <li><?= $user['name'] ?>: 
-                <a href="/ldap/user/view/<?= $user['id'] ?>">View</a> 
-                <a href="/ldap/user/update/<?= $user['id'] ?>">Update</a> 
-                <a href="/ldap/user/delete/<?= $user['id'] ?>">Delete</a>
+            <li><?= $user['cn'][0] ?>: 
+                <a href="/ldap/user/view/<?= $user['cn'][0] ?>">View</a> 
+                <a href="/ldap/user/update/<?= $user['cn'][0] ?>">Update</a> 
+                <a href="/ldap/user/delete/<?= $user['cn'][0] ?>">Delete</a>
             </li>
         <?php endforeach; ?>
     <?php else: echo 'No users' ?>
