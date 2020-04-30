@@ -1,6 +1,6 @@
 <h2>Update user</h2>
 <?php 
-    $action='/ldap/user/update/' . $user['cn'][0]; 
+    $action='/ldap/user/update/' . $post['cn']; 
     $_ctrl_action = 'update'; 
     include __DIR__.'/_form.phtml';
 ?>

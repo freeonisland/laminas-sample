@@ -20,9 +20,8 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $d = $this->getEvent()->getRouteMatch();
-        //$m = $d->getMatchedRouteName();
         $p = $d->getParams();
-        s($p);
+
         return new ViewModel();
     }
 }

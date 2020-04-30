@@ -55,7 +55,7 @@ return [
                     'user' => [
                         'type' => Regex::class,
                         'options' => [
-                            'regex' => '/user/?(?<action>[a-z]+)?', ///?(?<params>[\/a-z]+)?',
+                            'regex' => '/user/?(?<action>[a-z]+)?/?(?<params>[\/a-z]+)?',
                             'defaults' => [
                                 'controller' => 'Ldap\Controller\UserController',
                                 'action' => 'list',

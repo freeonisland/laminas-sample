@@ -130,38 +130,34 @@ class LdapManager extends AbstractLdapManager
     public function search($filter, $basedn=null, $scope=Ldap::SEARCH_SCOPE_SUB, $return_attr=['*'])
     {
         $basedn = $basedn ?? $this->basedn;
-        $s=$this->ldap->searchEntries($filter, $basedn, $scope, $return_attr);
-        //s($this->ldap->getEntry());
+        $s = $this->ldap->searchEntries($filter, $basedn, $scope, $return_attr);
         return $s;
-        //s(get_class_methods($this->ldap));
     }
 
+    /**
+     * Add
+     */
     public function add(string $objectClass, array $data)
     {
-        /**
-         * add
-         */
         $data['objectClass'] = $objectClass;
 
-        try {
-            $dn = "cn={$data['cn']},".$this->basedn;
-            $this->ldap->add($dn, $data);
-            echo 'Data inserted...<br/>';
-        } catch(\Exception $e) { echo 'EXCEPTION:'.$e->getMessage().'<br/>'; } 
+        $dn = "cn={$data['cn']},".$this->basedn;
+        if($this->ldap->add($dn, $data))
+            return true;
+        return false;
     }
 
-    public function update(string $objectClass, string $uid, array $data)
+    /**
+     * Update
+     */
+    public function update(string $objectClass, string $cn, array $data)
     {
-        /**
-         * add
-         */
         $data['objectClass'] = $objectClass;
 
-        try {
-            $dn = "cn={$uid},".$this->basedn;
-            $this->ldap->update($dn, $data);
-            echo 'Data updated...<br/>';
-        } catch(\Exception $e) { echo 'EXCEPTION:'.$e->getMessage().'<br/>'; } 
+        $dn = "cn={$cn},".$this->basedn;
+        if($this->ldap->update($dn, $data))
+            return true;
+        return false;
     }
 
     public function delete(string $uid)

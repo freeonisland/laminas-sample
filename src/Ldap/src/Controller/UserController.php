@@ -11,7 +11,7 @@ use Ldap\Factory\ServiceFactory;
 class UserController extends AbstractActionController
 {
     /**
-     * 
+     * List
      */
     public function listAction()
     {
@@ -24,56 +24,87 @@ class UserController extends AbstractActionController
     }
 
     /**
-     * 
+     * Create
      */
     public function createAction()
     {   
         $lm = ServiceFactory::createLdapManager();
-        $schemas = $lm->getSchemas();
-
         $post = $this->getRequest()->getPost();
         
         if ($post && count($post) && 'yes' !== $post['onlychange']) {
             // Create data ...
-            if($post['cn'])
-                $lm->add('person', [
-                    'cn' => $post['cn'],
-                    'sn' => $post['sn']
-                ]);
+            $data = (array)$post;
+            unset($data['uid'], $data['onlychange'], $data['objectclass']);
+            
+            try{
+                $lm->add($post['objectclass'], $data);
+                $msg='Data inserted...';
+            } catch(\Exception $e){ $msg = $e->getMessage(); }
         }
 
         return new ViewModel([
-            'user' => [
-                'cn'=>[''],
-                'sn'=>['']
-            ],
-            'schemas' => $schemas,
+            'msg' => $msg,
+            'schemas' => $lm->getSchemas(),
             'post' => $post
         ]);
     }
 
-    public function updateAction(string $userId)
+    /**
+     * Update
+     */
+    public function updateAction()
     {
-        $lm=$this->getModule('LaminasManager');
+        $lm = ServiceFactory::createLdapManager();
+        $post = $this->getRequest()->getPost();
 
-        if($this->post) {
-            // Update data ...
-            $lm->update('person', $this->post['uid'], [
-                'cn' => $this->post['cn'],
-                'sn' => $this->post['sn']
-            ]);
+        // get userid from url params
+        $params = $this->getEvent()->getRouteMatch()->getParams()['params'];
+        if(!$params) {
+            return $this->notFoundAction();
         }
 
-        $s="(&(objectClass=person)(cn={$userId}))";
-        $user=$lm->search($s);
+        // Search
+        $userId = $params;
+        $s="cn={$userId}";
+        $user = $lm->search($s);
 
-        return [
-            'user' => $user[0]
-        ]; 
+        if($user) {
+            $user = $user[0];
+        } else {
+            throw new \InvalidArgumentException("{$userId} not found");
+        }
+
+        // Post request
+        if ($post && count($post) && 'yes' !== $post['onlychange']) {
+            // Create data ...
+            $data = (array)$post;
+            $cn = $data['cn'];
+            unset($data['onlychange'], $data['schema']);
+            
+            try{
+                $lm->update($post['objectclass'], $cn, $data);
+                $msg='Data updated...';
+            } catch(\Exception $e){ $msg = $e->getMessage(); }
+        } else {
+             // init data
+            foreach($user as $param => $data) {
+                if(is_array($data)) {
+                    $post[$param] = implode(',',$data);
+                } else {
+                    $post[$param] = $data;
+                }
+            }
+        }
+
+        return new ViewModel([
+            'msg' => $msg,
+            'schemas' => $lm->getSchemas(),
+            'post' => $post
+        ]);
     }
 
     /**
-     * 
+     * View
      */
     public function viewAction(string $userId)
     {
@@ -86,7 +117,7 @@ class UserController extends AbstractActionController
     }
 
     /**
-     * 
+     * Delete
      */
     public function deleteAction(string $userId)
     {
