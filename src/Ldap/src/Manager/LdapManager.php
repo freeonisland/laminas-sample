@@ -160,12 +160,11 @@ class LdapManager extends AbstractLdapManager
         return false;
     }
 
-    public function delete(string $uid)
+    public function delete(string $cn)
     {
         try {
-            $dn = "cn={$uid},".$this->basedn;
+            $dn = "cn={$cn},".$this->basedn;
             $this->ldap->delete($dn);
-            echo 'Data deleted...<br/>';
         } catch(\Exception $e) { echo 'EXCEPTION:'.$e->getMessage().'<br/>'; } 
     }
 

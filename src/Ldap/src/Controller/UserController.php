@@ -106,36 +106,58 @@ class UserController extends AbstractActionController
     /**
      * View
      */
-    public function viewAction(string $userId)
+    public function viewAction()
     {
-        $lm = $this->getModule('LaminasManager');
-        $user=$lm->search("(&(cn={$userId})(objectClass=person))");
+        $lm = ServiceFactory::createLdapManager();
+        $post = $this->getRequest()->getPost();
 
-        return [
-            'user' => $user?$user[0]:null
-        ]; 
+        // get userid from url params
+        $params = $this->getEvent()->getRouteMatch()->getParams()['params'];
+        if(!$params) {
+            return $this->notFoundAction();
+        }
+
+        // Search
+        $userId = $params;
+        $s="cn={$userId}";
+        $user = $lm->search($s)[0];
+
+        return new ViewModel([
+            'user' => $user
+        ]);
     }
 
     /**
      * Delete
      */
-    public function deleteAction(string $userId)
+    public function deleteAction()
     {
-        $lm = $this->getModule('LaminasManager');
-        $user=$lm->get($userId);
-        
-        if(count($this->post)) {
+        $lm = ServiceFactory::createLdapManager();
+        $post = $this->getRequest()->getPost();
+
+        // get CommonName from url params
+        $params = $this->getEvent()->getRouteMatch()->getParams()['params'];
+        if(!$params) {
+            return $this->notFoundAction();
+        }
+
+        // Search
+        $cn = $params;
+        $user = $lm->search("cn={$cn}")[0];
+
+        //s($user );
+        if($post && count($post)) {
             // Delete data ...
-            s($this->post);
-            if('yes'===$this->post['confirm']) {
-                $lm->delete($userId);
+            if('yes'===$post['confirm']) {
+                $lm->delete($cn);
                 //redirect
+                header('Location: /ldap/user/list');
                 die();
             }
         }
 
         return [
-            'user' => $user[0]
+            'user' => $user
         ]; 
     }
 }
