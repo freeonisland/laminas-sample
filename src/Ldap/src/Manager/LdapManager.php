@@ -127,6 +127,9 @@ class LdapManager extends AbstractLdapManager
     int $timelimit
 ) : Collection
      */
+    /**
+     * ex: search(cn=USERNAME)
+     */
     public function search($filter, $basedn=null, $scope=Ldap::SEARCH_SCOPE_SUB, $return_attr=['*'])
     {
         $basedn = $basedn ?? $this->basedn;

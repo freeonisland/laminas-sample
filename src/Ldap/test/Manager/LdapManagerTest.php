@@ -27,8 +27,24 @@ class LdapManagerTest extends AbstractHttpControllerTestCase
     public function testCanConnect()
     {
         $ldap = \Ldap\Factory\ServiceFactory::createLdapManager();
-        $conn = $ldap->connect();
-        $this->assertTrue($conn);
+        $ldap->connect();
+        $res=$ldap->search('cn={}');
+        $this->assertEquals($res,[]);
+    }
+
+    public function testLdapCrud()
+    {
+        $ldap = \Ldap\Factory\ServiceFactory::createLdapManager();
+        $ldap->connect();
+
+        $name = 'unittest_user_cn';
+        $ldap->add('person', ['cn'=>$name,'sn'=>'essai_user_sn']);
+        $res=$ldap->search("cn={$name}");
+        $ldap->update('person', $name, ['sn'=>'essai_user_sn2']);
+        $res=$ldap->search('cn='.$name)[0];
+        $this->assertArrayHasKey('sn',$res);
+        $this->assertEquals($res['sn'][0],'essai_user_sn2');
+        $ldap->delete($name);
     }
 
     public function testCanSimpleConnect()

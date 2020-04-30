@@ -22,18 +22,19 @@ class SimpleManager// extends AbstractLdapManager
             // Connexion au serveur LDAP
             $ldapbind = ldap_bind($ldapconn, $ldaprdn, $ldappass)
                 or die('Impossible to bind server');
-            s($ldapbind);
+            //s($ldapbind);
 
             // Vérification de l'authentification
             if ($ldapbind) {
                 //echo "réussie...";
+                return true;
             } else {
                 echo "échouée...";
             }
-
         } else {
             echo "Bind impossible...";
         }
+        return false;
     }
 
 }
