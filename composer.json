@@ -16,18 +16,21 @@
     "minimum-stability": "stable",
     "require": {
         "php": "^7.2",
-        "laminas/laminas-component-installer": "^2.1",
-        "laminas/laminas-config": "^3.3",
-        "laminas/laminas-config-aggregator": "^1.2",
-        "laminas/laminas-development-mode": "^3.2",
-        "laminas/laminas-ldap": "^2.10",
-        "laminas/laminas-modulemanager": "^2.8",
-        "laminas/laminas-mvc": "^3.1",
-        "laminas/laminas-permissions-acl": "^2.7",
-        "laminas/laminas-test": "^3.4",
-        "symfony/yaml": "^5.0"
+        "laminas/laminas-component-installer": "2.2",
+        "laminas/laminas-config": "3.3",
+        "laminas/laminas-config-aggregator": "1.2",
+        "laminas/laminas-console": "2.8",
+        "laminas/laminas-development-mode": "3.2",
+        "laminas/laminas-ldap": "2.10",
+        "laminas/laminas-modulemanager": "2.8",
+        "laminas/laminas-mvc": "3.1",
+        "laminas/laminas-permissions-acl": "2.7",
+        "laminas/laminas-test": "3.4",
+        "symfony/yaml": "5.1"
     },
     "require-dev": {
+        "codeception/codeception": "^4.1",
+        "codeception/module-asserts": "^1.2",
         "fzaninotto/faker": "^1.9",
         "kint-php/kint": "^3.3",
         "phpmd/phpmd": "^2.8",
@@ -39,13 +42,15 @@
     "autoload": {
         "psr-4": {
             "Application\\": "src/Application/src/",
-            "Ldap\\": "src/Ldap/src/"
+            "Ldap\\": "src/Ldap/src/",
+            "Soap\\": "src/Soap/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "ApplicationTest\\": "src/Application/test/",
-            "LdapTest\\": "src/Ldap/test/"
+            "LdapTest\\": "src/Ldap/test/",
+            "SoapTest\\": "src/Soap/test/"
         }
     },
     "scripts": {
@@ -57,6 +62,7 @@
             "php bin/update-gitignore.php"
         ],
         "check": "phpcs",
+        "cs": "phpcs",
         "fix": "phpcbf",
         "md": "phpmd module text cleancode, codesize, controversial, design, naming, unusedcode",
         "serve": "php -S 0.0.0.0:8080 -t public",

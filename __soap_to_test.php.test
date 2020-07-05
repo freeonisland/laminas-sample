@@ -1,0 +1,353 @@
+
+#CLIENT
+SoapClient(trace=>true)
+$client->getMessageWsdl(implode(',',$params));
+            file_put_contents('client_request.log', var_export($client->__getLastRequest(), true));
+
+#SERVER
+ob_start();
+$response = $server->handle();
+$c = ob_get_contents();
+ob_end_flush();
+//$request = $server->getResponse();
+file_put_contents('server_request.log', var_export($c, true));
+
+
+
+$header = new \SoapHeader(\Soap\Manager\ServerManager::$NS, 
+    'getMessageWsdl',
+    ['string'],
+    true);
+    
+$header2 = new \SoapHeader(\Soap\Manager\ServerManager::$NS, 
+    'getMessage',
+    ['int','deuxieme'], #PARAMETRES DE LA FUNCTION APPELLEE
+    false);
+
+			
+	params:
+	!!! bien définir les methods dans le DOCCOMMENT de la classe du servuer
+	
+
+/**
+     * @param array
+     * @param array
+     * @return string
+     */
+    public function getMessage(array $strNom, array  $essai_deux): string
+
+
+
+$headerbody = array('getMessage' => 'TOKENIZED',
+            //    'Version' => 'VERSION',
+              //  'MerchantID'=>'MERCH_ID',
+                  'UserCredentials'=>array('UserID'=>'user_id_blazlblb',
+                                         'Password'=>'7v1e6tb3db3y8y'));
+//Create Soap Header.       
+$header = new \SOAPHeader(\Soap\Manager\ServerManager::$NS, 'getMessage', $headerbody);       
+
+			
+			header
+
+---client
+//Create Soap Header.
+            $header = new \SOAPHeader(\Soap\Manager\ServerManager::$NS, 'Header', array(
+               ['Username'=>'u', 'Password'=>'p']
+            ), true);   
+            
+
+            $header_msg = new \SOAPHeader(\Soap\Manager\ServerManager::$NS, 'getMessage', array(
+                'TOKENIZED',
+                
+            ), true);       
+
+            $client->__setSoapHeaders([$header, $header_msg]); #default namespace. These attributes are: mustUnderstand, actor, and encodingStyle.
+
+
+---server
+/**
+     * @param array user credential
+     * @return void
+     */
+    function Header(array $header): void
+    {
+        
+        if ((isset($header[0]->key)) && (isset($header[1]->key))) {
+            if (('Username'==$header[0]->key && 'Password'==$header[1]->key)) {
+                if (('us'==$header[0]->value && 'p'==$header[1]->value)) {
+                    $this->http_auth = true;
+                }
+            }
+        }
+    }
+
+			
+			
+	error
+
+
+$client = new \SoapClient(
+                \Soap\Manager\ServerManager::$URL.'/getwsdl', 
+                array(
+                    
+                    'exceptions' => false
+                )
+            );
+
+#IN CASE OF 'exceptions' => false
+        $return = $client->getMessage(implode(',',$params));
+        if (is_soap_fault($return)) {
+            echo 'fault';
+            //trigger_error("SOAP Fault: (faultcode: {$return->faultcode}, faultstring: {$return->faultstring})", E_USER_ERROR);
+        }
+
+--- server
+* https://www.w3.org/TR/soap12-part1/#faultcodes
+ * SOAPFault VersionMismatch, MustUnderstand, Sender, Receiver
+
+/**
+     * @param string name
+     * @return string wsdl dates
+     */
+    public function getMessage(string $strNom): string
+    {
+        
+        if(null===$this->http_auth) 
+            throw new \SOAPFault('Sender', 'getmessage() http_auth not valid:', 'actor:jean', 'detail:null', 'name:encode', 'header:nop');
+
+
+       
+        return 'Login 1 dates: ' . (`perl ../perl/test.pl 1`) . $strNom;
+    }
+
+			
+			
+			*********************************
+			
+			
+
+<?php
+namespace Soap\Controller;
+// on indique au serveur à quel fichier de description il est lié
+/*$serveurSOAP = new \SoapServer(__DIR__.'/../Envelope/request.xml');
+// ajouter la fonction getHello au serveur
+$serveurSOAP->addFunction('getHello');
+// lancer le serveur
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+    $serveurSOAP->handle();
+}
+else
+{
+    echo 'désolé, je ne comprends pas les requêtes GET, veuillez seulement utiliser POST';
+}
+function getHello($prenom, $nom)
+{
+    return 'Hello ' . $prenom . ' ' . $nom;
+}
+die();*/
+/** 
+ * ref: http://www.w3.org/2001/12/soap-envelope
+ *      http://www.w3.org/2001/12/soap-encoding
+ * 
+ * SOAP
+ *  Envelope
+ *  Header
+ *  Body
+ *  (Fault)
+ *
+ */
+class ServerController
+{
+    public function indexAction()
+    {
+        ini_set("soap.wsdl_cache_enabled", "0");
+        
+        $options = [
+            'location' => "http://192.168.99.100/soap/server",
+            'uri'      => "http://192.168.99.100/soap/server",  
+            'soap_version' => SOAP_1_2,
+            'cache_wsdl'    =>  WSDL_CACHE_NONE
+        ];
+        try {
+            $server = new \SoapServer('http://192.168.99.100/soap/server/getwsdl', $options);
+            $server->setClass('\Soap\Manager\ServerManager'); 
+          //  $server->addFunction('getMessage');
+            //var_dump('rt');
+            //$server->addSoapHeader(new \SoapServer(NULL, "Header", "value"));
+            $server->handle();
+            die();
+        } catch(\SOAPFault $f) {
+            print $f->faultString();
+        }
+    }
+    public function getwsdlAction()
+    {
+        $autodiscover = new \Laminas\Soap\AutoDiscover();
+        $autodiscover
+            ->setClass('\Soap\Manager\ServerManager')
+            ->setUri('http://192.168.99.100/soap/server')
+            ->setBindingStyle();
+            //->setServiceName('MySoapService');
+            
+        header('Content-Type: text/xml');
+        $wsdl = $autodiscover->generate();
+        //var_dump(get_class_methods($wsdl));
+        
+        //echo $autodiscover->toXml();
+        echo $wsdl->toXML();
+        
+        die();
+    }
+}
+```
+
+```
+<?php
+namespace Soap\Manager;
+class ServerManager 
+{
+    private $user_is_valid;
+    
+    /**
+     * @param string
+     * @return string
+     */
+    public function getMessage(string $strNom): string
+    {
+        //var_dump('zertzetzer');
+        return 'Login(s) dates: ' . $strNom;
+    }
+    /**
+     * @param string
+     * @return string
+     */
+    public function getMessageWsdl(string $strNom): string
+    {
+        //var_dump('zertzetzer');
+        return 'Login(s) WSDL dates: ' . $strNom;
+    }
+    /**
+     * @return int
+     */
+    function header($header) 
+    {
+        if ((isset($header->Username)) && (isset($header->Password))) {
+            if (ValidateUser($header->Username, $header->Password)) {
+                $user_is_valid = true;
+            }
+        }
+    }
+    public function getting()
+    {
+        echo 'ERT';
+        return 'AZE';
+    }
+    public function add($x, $y)
+    {
+        return $x + $y;
+    }
+    function soapRequest($request) 
+    {
+        if ($user_is_valid) {
+            // process request
+            echo 'ok';
+        }
+        else {
+            throw new MyFault("MySoapRequest", "User not valid.");
+        }
+    }
+} 
+```
+
+
+```
+<?php
+namespace Soap\Controller;
+/**
+ * ref: http://www.w3.org/2001/12/soap-envelope
+ *      http://www.w3.org/2001/12/soap-encoding
+ * 
+ * SOAP
+ *  Envelope
+ *  Header
+ *  Body
+ *  (Fault)
+ */
+class IndexController
+{
+    public function indexAction($params)
+    {  
+        ini_set("soap.wsdl_cache_enabled", "0");
+        
+        try {
+            $client = new \SoapClient(
+                'http://192.168.99.100/soap/server/getwsdl', 
+                array(
+                    'soap_version'   => SOAP_1_2,
+                    'compression'    => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP
+                )
+            );
+        } catch(\SOAPFault $f) {
+            echo 'ERROR CLIENT';
+            var_dump($f->getMessage());
+            die();
+        }
+        
+        try {
+            $return = $client->getMessageWsdl(implode(',',$params));
+            echo($return);
+        } catch(\SoapFault $f) {
+            echo 'FAULT FUNCTION';
+            var_dump(($f->getMessage()));
+        } catch(\Exception $e){
+            echo 'EXCEPTION FUNCTION';
+            var_dump( $e->getMessage() );
+        }
+    }
+    /*
+        $autodiscover = new Laminas\Soap\AutoDiscover();
+        // Defaults are
+        // - 'use' => 'encoded'
+        // - 'encodingStyle' => 'http://schemas.xmlsoap.org/soap/encoding/'
+        $autodiscover->setOperationBodyStyle([
+            'use'       => 'literal',
+            'namespace' => 'https://getlaminas.org',
+        ]);
+        // Defaults are:
+        // - 'style' => 'rpc'
+        // - 'transport' => 'http://schemas.xmlsoap.org/soap/http'
+        $autodiscover->setBindingStyle([
+            'style'     => 'document',
+            'transport' => 'https://getlaminas.org',
+        ]);
+        $autodiscover->addFunction('myfunc1');
+        $wsdl = $autodiscover->generate();
+    */
+    public function nowsdlAction($params=null)
+    {  
+        try {
+            $client = new \SoapClient(null, array(
+                'location' => "http://192.168.99.100/soap/server",
+                'uri'      => "soap",
+                'wsdl_cache' => 0,
+                'trace'    => 1,
+                "soap_version" => SOAP_1_2
+            ));
+        } catch(\SOAPFault $f) {
+            echo 'ERROR CLIENT';
+            var_dump($f->faultString());
+        }
+        
+        try {
+            $return = $client->__soapCall("getMessage", [implode(',',$params)]);
+            $return = $client->getMessage(implode(',',$params));
+            echo($return);
+        } catch(\SoapFault $f) {
+            var_dump(($f->getMessage()));
+            var_dump( $client->__getLastResponse() );
+        } catch(\Exception $e){
+            var_dump( $e->getMessage() );
+        }
+    }
+}

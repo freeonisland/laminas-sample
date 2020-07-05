@@ -16,7 +16,8 @@ services:
             - zend
           
     phpfpm: 
-        build: .docker/conf/fpm
+        image: zend-laminas-ex_phpfpm
+        #build: .docker/conf/fpm
         working_dir: /appli
         container_name: phpfpm
         ports: 
