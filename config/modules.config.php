@@ -13,6 +13,7 @@
  */
 
 return [
+    'Laminas\Cache',
     'Laminas\Router',
     'Laminas\Validator',
     'Application',

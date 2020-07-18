@@ -1,0 +1,5 @@
+-DOCKER-
+minio/minio
+
+-PACKAGES-
+aws/aws-sdk-php

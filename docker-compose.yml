@@ -27,34 +27,34 @@ services:
         networks: 
             - zend
     
-    ldap-server:
-        build: .docker/conf/ldap
-        container_name: ldap-server
-        ports:
-            - 389:389
-            - 636:636
-        environment:
-            LDAP_ORGANISATION: "My Company"
-            LDAP_DOMAIN: "my-company.com"
-            LDAP_ADMIN_PASSWORD: "JonSn0w"
-        networks: 
-            - zend
+    # ldap-server:
+    #     build: .docker/conf/ldap
+    #     container_name: ldap-server
+    #     ports:
+    #         - 389:389
+    #         - 636:636
+    #     environment:
+    #         LDAP_ORGANISATION: "My Company"
+    #         LDAP_DOMAIN: "my-company.com"
+    #         LDAP_ADMIN_PASSWORD: "JonSn0w"
+    #     networks: 
+    #         - zend
         
-    ldap-admin: 
-        image: osixia/phpldapadmin:0.9.0 #phpLDAPadmin 1.2.5
-        container_name: ldap-admin
-        ports:
-            - 6443:443
-        #environment:
-        #    PHPLDAPADMIN_LDAP_HOSTS: ldap-server
-        #PHPLDAP_IP=$(docker inspect -f "{{ .NetworkSettings.IPAddress }}" phpldapadmin-service)
-        volumes:
-            - ${WEBSERVER}/${DIRECTORY}/.docker/conf/ldapadmin/config.php:/container/service/phpldapadmin/assets/config/config.php
-        depends_on:
-           - ldap-server
-        networks: 
-            - zend
-        command: --copy-service
+    # ldap-admin: 
+    #     image: osixia/phpldapadmin:0.9.0 #phpLDAPadmin 1.2.5
+    #     container_name: ldap-admin
+    #     ports:
+    #         - 6443:443
+    #     #environment:
+    #     #    PHPLDAPADMIN_LDAP_HOSTS: ldap-server
+    #     #PHPLDAP_IP=$(docker inspect -f "{{ .NetworkSettings.IPAddress }}" phpldapadmin-service)
+    #     volumes:
+    #         - ${WEBSERVER}/${DIRECTORY}/.docker/conf/ldapadmin/config.php:/container/service/phpldapadmin/assets/config/config.php
+    #     depends_on:
+    #        - ldap-server
+    #     networks: 
+    #         - zend
+    #     command: --copy-service
 
 networks:
     zend:
