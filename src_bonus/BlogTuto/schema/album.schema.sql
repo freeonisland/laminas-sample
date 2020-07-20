@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS album (
+    id INTEGER PRIMARY KEY ASC,
+    artist VARCHAR (100),
+    title VARCHAR (100)
+);

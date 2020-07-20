@@ -14,4 +14,7 @@
 
 return [
     // ...
+    'db' => [
+        'driver' => 'pdo_sqlite'
+    ]
 ];

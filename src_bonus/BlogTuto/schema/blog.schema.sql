@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS blog (
+    id INTEGER PRIMARY KEY ASC,
+    title VARCHAR (100),
+    content TEXT
+);

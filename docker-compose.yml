@@ -1,7 +1,7 @@
 version: '2.2'
 
 services: 
-    nginx:
+    nginx2:
         image: nginx:1.17
         restart: always
         #container_name: nginx
@@ -15,7 +15,7 @@ services:
         networks: 
             - zend
           
-    phpfpm: 
+    phpfpm2: 
         image: zend-laminas-ex_phpfpm
         #build: .docker/conf/fpm
         working_dir: /appli
@@ -27,7 +27,7 @@ services:
         networks: 
             - zend
     
-    # ldap-server:
+    # ldap-server2:
     #     build: .docker/conf/ldap
     #     container_name: ldap-server
     #     ports:
@@ -40,7 +40,7 @@ services:
     #     networks: 
     #         - zend
         
-    # ldap-admin: 
+    # ldap-admin2: 
     #     image: osixia/phpldapadmin:0.9.0 #phpLDAPadmin 1.2.5
     #     container_name: ldap-admin
     #     ports:

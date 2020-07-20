@@ -13,9 +13,17 @@
  */
 
 return [
+    'Laminas\Form',
+    'Laminas\Hydrator',
+    'Laminas\InputFilter',
+    'Laminas\Filter',
+    'Laminas\Db',
     'Laminas\Cache',
     'Laminas\Router',
     'Laminas\Validator',
+
+    'BlogTuto',
+
     'Application',
     'Ldap'
 ];
