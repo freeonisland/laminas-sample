@@ -13,12 +13,13 @@
  */
 
 return [
+    'Laminas\Cache',
+    'Laminas\Db',
+    'Laminas\Di', #for services auto-injection
     'Laminas\Form',
+    'Laminas\Filter',
     'Laminas\Hydrator',
     'Laminas\InputFilter',
-    'Laminas\Filter',
-    'Laminas\Db',
-    'Laminas\Cache',
     'Laminas\Router',
     'Laminas\Validator',
 

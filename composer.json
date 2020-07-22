@@ -22,6 +22,7 @@
         "laminas/laminas-config-aggregator": "^1.2",
         "laminas/laminas-console": "^2.8",
         "laminas/laminas-db": "^2.11",
+        "laminas/laminas-di": "^3.1",
         "laminas/laminas-form": "^2.15",
         "laminas/laminas-ldap": "^2.10",
         "laminas/laminas-modulemanager": "^2.8",

@@ -12,9 +12,17 @@
  * file.
  */
 
+use Laminas\Mvc\Controller\LazyControllerAbstractFactory;
+
+
 return [
     // ...
+    'controllers' => [
+        'abstract_factories' => [
+            LazyControllerAbstractFactory::class,
+        ]
+    ],
     'db' => [
-        'driver' => 'pdo_sqlite'
+        'driver' => 'Pdo_Sqlite'
     ]
 ];

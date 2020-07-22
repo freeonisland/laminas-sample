@@ -12,69 +12,67 @@ namespace BlogTuto;
 
 use Laminas\Db\{Adapter\AdapterInterface, ResultSet\ResultSet, TableGateway\TableGateway};
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\ServiceManager\ServiceManager;
 
 class Module
 {
+    /**
+     * Auto-called by Laminas framework
+     */
+    /**
+     * Multiples ways to provide configurations:
+     * 
+     *      - config/module.config.php
+     *      - in Module.php
+     *      - or with ConfigProvider.php (like mezzio)
+     */
     public function getConfig() : array
     {
-        return include __DIR__ . '/../config/module.config.php';
+        $configProvider = new ConfigProvider;
+        return array_merge($configProvider(), include __DIR__ . '/../config/module.config.php');
     }
-
-    public function getServiceConfig()
-    {
-        return [
-            'factories' => [
-                Table\AlbumTable::class => function ($container) {
-                    $dbAdapter = $container->get(AdapterInterface::class);
-                    $resultSetPrototype = new ResultSet;
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\Album);
-                    return new Table\AlbumTable(
-                        'album', $dbAdapter, null, $resultSetPrototype
-                    );
-                },
-                Table\BlogTable::class => function ($container) {
-                    $dbAdapter = $container->get(AdapterInterface::class);
-                    $resultSetPrototype = new ResultSet;
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\Album);
-                    return new Table\AlbumTable(
-                        'album', $dbAdapter, null, $resultSetPrototype
-                    );
-                }
-            ]
-        ];
-
-        /*
-         * for gateway inside
-         */
-        /*return [
-            'factories' => [
-                Table\AlbumTable::class => function ($container) {
-                    $tableGateway = $container->get(Table\AlbumTableGateway::class);
-                    return new Table\AlbumTable($tableGateway);
-                },
-                Table\AlbumTableGateway::class => function ($container) {
-                    $dbAdapter = $container->get(AdapterInterface::class);
-                    $resultSetPrototype = new ResultSet;
-                    $resultSetPrototype->setArrayObjectPrototype(new Entity\Album);
-                    return new TableGateway('album', $dbAdapter, null, $resultSetPrototype);
-                }
-            ]
-        ];*/
-    }
-
+    /**
+     * 'controllers' => [
+     *      'factories' => [
+     *          Controller\IndexController::class => InvokableFactory::class,
+     *      ],
+     */
     public function getControllerConfig()
     {
         return [
             'factories' => [
-                Controller\AlbumController::class => function ($container) {
+                Controller\AlbumController::class => function (ServiceManager $container) {
                     return new Controller\AlbumController(
                         $container->get(Table\AlbumTable::class)
                     );
                 },
-                Controller\BlogController::class => function ($container) {
-                    return new Controller\BlogController;
-                }
+                /*
+                 * No need Controller\BlogController::class because auto-loader
+                 */
             ]
         ];
+    }
+
+     /**
+     * Autoload by Laminas
+     */
+    /**
+     * 'service_manager' => [
+     *      'factories' => [
+     *          Table\AlbumTable::class => function (ServiceManager $container) {}
+     *          Table\AlbumTable::class => new class () { function __invoke(ServiceManager $services) }
+     *      ],
+     */
+    public function getServiceConfig()
+    {
+        /**
+         * Inside ConfigProvider
+         */
+        /*return [
+            'factories' => [
+                Table\AlbumTable::class => function (ServiceManager $container) {}
+                Table\AlbumTable::class => new class () { function __invoke(ServiceManager $services) }
+            ],
+        ];*/
     }
 }

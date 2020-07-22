@@ -47,11 +47,16 @@ return [
             ],
         ],
     ],
-    /*'controllers' => [
-        'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
-        ],
-    ],*/
+    /**
+     * @source https://docs.laminas.dev/laminas-mvc/cookbook/automating-controller-factories/
+     * 
+     * Thanks to auto-loader in global.php
+     *      'abstract_factories' => [ LazyControllerAbstractFactory::class ]
+     */
+    /**
+     * Controllers puts in Module::getControllerConfig()
+     *      'abstract_factories' => [ LazyControllerAbstractFactory::class ]
+     */
     'view_manager' => [
         'template_path_stack' => [
             'album' => __DIR__ . '/../view',
