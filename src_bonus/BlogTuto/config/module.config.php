@@ -20,13 +20,27 @@ return [
             'album' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/blog[/:action[/:id]]',
+                    'route'    => '/album-tuto[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9]*',
                         'id' => '[0-9]*'
                     ],
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => Controller\AlbumController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+            'blog' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/blog-tuto[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9]*',
+                        'id' => '[0-9]*'
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\BlogController::class,
                         'action'     => 'index',
                     ],
                 ],

@@ -16,7 +16,7 @@ class AlbumFixture
                     VALUES ('".$faker->name."', '".$faker->sentence(2)."');".PHP_EOL;
         }
 
-        $db = new \PDO( sprintf('sqlite:%s/data/sqlite/%s.db', realpath(getcwd()), TableSchema::TABLE) );
+        //$db = new \PDO( sprintf('sqlite:%s/data/sqlite/%s.db', realpath(getcwd()), TableSchema::TABLE) );
 
         try {
             $db->exec($sql);

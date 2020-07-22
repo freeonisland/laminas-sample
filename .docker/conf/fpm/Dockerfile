@@ -5,7 +5,7 @@ FROM php:7.4-fpm
 RUN apt-get update && apt-get install -y wget git zip 
 
 # php ext: ldap...
-RUN apt-get install -y libldap2-dev
+RUN apt-get install -y libldap2-dev sqlite3
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && docker-php-ext-install ldap 
 
 # composer

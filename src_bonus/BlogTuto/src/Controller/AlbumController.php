@@ -19,7 +19,7 @@ use BlogTuto\{
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 
-class IndexController extends AbstractActionController
+class AlbumController extends AbstractActionController
 {
     private $table;
 

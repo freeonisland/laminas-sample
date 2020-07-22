@@ -16,7 +16,7 @@ class BlogFixture
                     VALUES ('".$faker->sentence(2)."', '".$faker->sentence(15)."');".PHP_EOL;
         }
 
-        $db = new \PDO( sprintf('sqlite:%s/data/sqlite/%s.db', realpath(getcwd()), TableSchema::TABLE) );
+        //$db = new \PDO( sprintf('sqlite:%s/data/sqlite/%s.db', realpath(getcwd()), TableSchema::TABLE) );
 
         if (!$db->exec($sql)) {
             var_dump( $db->errorInfo()[2] );

@@ -31,6 +31,14 @@ class Module
                     return new Table\AlbumTable(
                         'album', $dbAdapter, null, $resultSetPrototype
                     );
+                },
+                Table\BlogTable::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    $resultSetPrototype = new ResultSet;
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Album);
+                    return new Table\AlbumTable(
+                        'album', $dbAdapter, null, $resultSetPrototype
+                    );
                 }
             ]
         ];
@@ -58,10 +66,13 @@ class Module
     {
         return [
             'factories' => [
-                Controller\IndexController::class => function ($container) {
-                    return new Controller\IndexController(
+                Controller\AlbumController::class => function ($container) {
+                    return new Controller\AlbumController(
                         $container->get(Table\AlbumTable::class)
                     );
+                },
+                Controller\BlogController::class => function ($container) {
+                    return new Controller\BlogController;
                 }
             ]
         ];

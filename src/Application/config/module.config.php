@@ -32,46 +32,12 @@ return [
                     ],
                 ],
             ],
-            /*
-             * https://docs.laminas.dev/laminas-router/routing/#laminas-router-http-regex
-             * /ldap/001-some-blog_slug-here.html
-             * 
-             * (?<PARAM>regex)?
-             * 'regex' => '/ldap/(?<id>[a-zA-Z0-9_-]+)(\.(?<format>(json|html|xml|rss)))?'
-             * 'spec' => '/ldap/%id%.%format%',
-             */
-            'ldap' => [
-                'type'    => Regex::class,
-                'options' => [
-                    'regex' => '/ldap', 
-                    'defaults' => [
-                        'controller' => 'Ldap\Controller\IndexController',
-                        'action'     => 'index'
-                    ],
-                    'spec' => '/ldap'
-                ],
-                'may_terminate' => true,
-                'child_routes' => [
-                    'user' => [
-                        'type' => Regex::class,
-                        'options' => [
-                            'regex' => '/user/?(?<action>[a-z]+)?/?(?<params>[\/a-z]+)?',
-                            'defaults' => [
-                                'controller' => 'Ldap\Controller\UserController',
-                                'action' => 'list',
-                            ],
-                            'spec' => '/ldap/user'
-                        ],
-                    ],
-                ]
-            ]
+            
         ],
     ],
     'controllers' => [
         'factories' => [
-            \Application\Controller\IndexController::class => InvokableFactory::class,
-            \Ldap\Controller\IndexController::class => InvokableFactory::class,
-            \Ldap\Controller\UserController::class => InvokableFactory::class,
+            \Application\Controller\IndexController::class => InvokableFactory::class
         ],
     ],
     'view_manager' => [
@@ -86,15 +52,7 @@ return [
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
 
-            /*
-             * LDAP
-             */
-            'ldap/index/index'        => __DIR__ . '/../../Ldap/view/index/index.phtml',
-            'ldap/user/list'          => __DIR__ . '/../../Ldap/view/user/list.phtml',
-            'ldap/user/create'        => __DIR__ . '/../../Ldap/view/user/create.phtml',
-            'ldap/user/update'        => __DIR__ . '/../../Ldap/view/user/update.phtml',
-            'ldap/user/view'          => __DIR__ . '/../../Ldap/view/user/view.phtml',
-            'ldap/user/delete'        => __DIR__ . '/../../Ldap/view/user/delete.phtml'
+            
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
