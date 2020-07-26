@@ -6,7 +6,7 @@ use Laminas\InputFilter\{InputFilter, InputFilterInterface, InputFilterAwareInte
 use Laminas\Filter\{ToInt, StripTags, StringTrim};
 use Laminas\Validator\StringLength;
 
-class Album implements InputFilterAwareInterface
+class Album extends \ArrayObject implements InputFilterAwareInterface
 {
     private $id;
     private $artist;
@@ -61,14 +61,6 @@ class Album implements InputFilterAwareInterface
         }
 
         $inputFilter = new InputFilter();
-
-        $inputFilter->add([
-            'name' => 'id',
-            'required' => true,
-            'filters' => [
-                ['name' => ToInt::class],
-            ],
-        ]);
 
         $inputFilter->add([
             'name' => 'artist',

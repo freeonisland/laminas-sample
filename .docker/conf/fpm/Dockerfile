@@ -1,12 +1,25 @@
 FROM php:7.4-fpm
 #debian buster 10.3
 
+#####################
+# memory
+# - check VirtualBox memory
+# - docker builder prune
+# - docker volumes
+#####################
+
 # apt-get
-RUN apt-get update && apt-get install -y wget git zip 
+RUN apt-get update && ENV_DOCKER_UNIQ_TOKEN=8b6fh817b86761dg681d
+RUN apt-get install -y sqlite3 wget git zip 
 
 # php ext: ldap...
-RUN apt-get install -y libldap2-dev sqlite3
-RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && docker-php-ext-install ldap 
+RUN apt-get install -y libldap2-dev
+RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ 
+RUN docker-php-ext-install ldap 
+
+# for laminas form view helper
+RUN apt-get install icu-devtools libicu-dev
+RUN docker-php-ext-configure intl && docker-php-ext-install intl
 
 # composer
 #RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O - -q | php -- --quiet

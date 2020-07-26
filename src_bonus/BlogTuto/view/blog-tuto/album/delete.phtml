@@ -2,7 +2,7 @@
 // module/Album/view/album/album/delete.phtml:
 
 $title = 'Delete album';
-$url   = $this->url('album', ['action' => 'delete', 'id' => $id]);
+$url   = $this->url('album-tuto', ['action' => 'delete', 'id' => $id]);
 
 $this->headTitle($title);
 ?>
@@ -15,9 +15,12 @@ $this->headTitle($title);
 </p>
 
 <form action="<?= $url ?>" method="post">
+
 <div class="form-group">
-    <input type="hidden" name="id" value="<?= (int) $album->id ?>" />
-    <input type="submit" class="btn btn-danger" name="del" value="Yes" />
-    <input type="submit" class="btn btn-success" name="del" value="No" />
+    <a href="<?=$this->url("album-tuto")?>" class="btn btn-secondary">Back to list</a>
+
+    <input type="hidden" name="id" value="<?= $album->id ?>" />
+    <input type="submit" class="btn btn-danger" name="validate_delete" value="Delete" />
+    <input type="submit" class="btn btn-success" value="No" />
 </div>
 </form>

@@ -13,6 +13,7 @@
  */
 
 return [
+    'Laminas\I18n',
     'Laminas\Cache',
     'Laminas\Db',
     'Laminas\Di', #for services auto-injection
@@ -23,8 +24,9 @@ return [
     'Laminas\Router',
     'Laminas\Validator',
 
-    'BlogTuto',
+    'LmConsole',
 
+    'BlogTuto',
     'Application',
     'Ldap'
 ];

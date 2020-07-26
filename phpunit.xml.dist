@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true">
     <testsuites>
-        <testsuite name="Laminas Skeleton Test Suite">
-            <directory>module/**/test</directory>
+        <testsuite name="Laminas Test Suite">
+            <directory>src/**/test</directory>
+            <directory>src_bonus/**/test</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">module/*/src</directory>
+            <directory suffix=".php">src/*/src</directory>
+            <directory suffix=".php">src_bonus/*/src</directory>
         </whitelist>
     </filter>
 </phpunit>

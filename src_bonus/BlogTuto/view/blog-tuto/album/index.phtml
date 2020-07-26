@@ -1,18 +1,19 @@
 <h3>albums</h3>
 
 <table>
-<thead><tr><th></th><th>Artist:</th><th>Title:</th><th></th></tr></thead><tbody>
+<thead><tr><th></th><th>Title</th><th>Artist</th><th></th></tr></thead><tbody>
 <?php foreach ($albums as $album): ?>
     <tr>
     <td><?=$this->escapeHtml($album->id)?></td>
-    <td><?=$this->escapeHtml($album->artist)?></td>
     <td><?=$this->escapeHtml($album->title)?></td>
+    <td><?=$this->escapeHtml($album->artist)?></td>
     <td>
-        <a href="<?=$this->url("album", ['action'=>'edit', 'id'=>$album->id])?>">U</a>
-        <a href="<?=$this->url("album", ['action'=>'delete', 'id'=>$album->id])?>">X</a>
+        <a href="<?=$this->url("album-tuto", ['action'=>'edit', 'id'=>$album->id])?>" class="btn btn-primary">Edit</a>
+        <a href="<?=$this->url("album-tuto", ['action'=>'delete', 'id'=>$album->id])?>" class="btn btn-primary">Delete</a>
     </td>
     </tr>
 <?php endforeach ?>
 
 </tbody></table>
-<a href="<?=$this->url('blog', ['action'=>'create'])?>" class="btn btn-primary">Create</a>
+
+<a href="<?=$this->url('album-tuto', ['action'=>'create'])?>" class="btn btn-primary">Create</a>

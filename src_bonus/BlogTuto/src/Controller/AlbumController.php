@@ -53,16 +53,19 @@ class AlbumController extends AbstractActionController
 
         $album = new Album;
         $form->setInputFilter($album->getInputFilter());
+
         $form->setData($this->getRequest()->getPost());
 
         if (!$form->isValid()) {
             return ['form'=>$form];
         }
-        $album->exchangeArray($form->getData());
-        $this->table->saveAlbum($album);
 
+        $album->exchangeArray($form->getData());
+        
+        $this->table->saveAlbum($album);
+        
         //return new ViewModel();
-        return $this->redirect()->toRoute('album');
+        return $this->redirect()->toRoute('album-tuto');
     }
 
 
@@ -71,7 +74,7 @@ class AlbumController extends AbstractActionController
         $id = (int) $this->params()->fromRoute('id', 0);
 
         if (0 === $id) {
-            return $this->redirect()->toRoute('album', ['action' => 'add']);
+            return $this->redirect()->toRoute('album-tuto', ['action' => 'add']);
         }
 
         // Retrieve the album with the specified id. Doing so raises
@@ -80,7 +83,7 @@ class AlbumController extends AbstractActionController
         try {
             $album = $this->table->getAlbum($id);
         } catch (\Exception $e) {
-            return $this->redirect()->toRoute('album', ['action' => 'index']);
+            return $this->redirect()->toRoute('album-tuto', ['action' => 'index']);
         }
 
         $form = new AlbumForm;
@@ -104,28 +107,28 @@ class AlbumController extends AbstractActionController
         $this->table->saveAlbum($album);
 
         // Redirect to album list
-        return $this->redirect()->toRoute('album', ['action' => 'index']);
+        return $this->redirect()->toRoute('album-tuto', ['action' => 'index']);
     }
 
     public function deleteAction()
     {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
-            return $this->redirect()->toRoute('album');
+            return $this->redirect()->toRoute('album-tuto');
         }
 
         $request = $this->getRequest();
 
         if ($request->isPost()) {
-            $del = $request->getPost('del', 'No');
+            $delete = $request->getPost('validate_delete');
 
-            if ($del == 'Yes') {
+            if ($delete) {
                 $id = (int) $request->getPost('id');
                 $this->table->deleteAlbum($id);
             }
 
             // Redirect to list of albums
-            return $this->redirect()->toRoute('album');
+            return $this->redirect()->toRoute('album-tuto');
         }
 
         return [

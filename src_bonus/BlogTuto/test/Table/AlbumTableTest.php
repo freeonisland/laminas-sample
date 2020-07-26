@@ -1,90 +1,85 @@
 <?php
 
-namespace BlogTutoTest\Table;
+namespace BlogTuto\Table;
 
 use Laminas\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 use Laminas\Stdlib\Parameters;
 
-// Mock database
-use Album\Table\AlbumTable;
+// to Mock database
+use BlogTuto\Table\AlbumTable;
+use BlogTuto\Model\Album;
 use Laminas\ServiceManager\ServiceManager;
 
 class AlbumTableTest extends AbstractHttpControllerTestCase
 {
     protected $traceError = true;
 
+    const MODULE = 'blogtuto';
+    const ROUTE = '/album-tuto';
+
     public function setUp(): void
     {
         $this->setApplicationConfig(
-            include 'config/application.config.php'
+            include __DIR__.'/../../../../config/application.config.php'
         );
         parent::setUp();
 
         $services = $this->getApplicationServiceLocator();
         $config = $services->get('config');
-        $this->realAlbumTable = $services->get(AlbumTable::class);
+        $this->albumTable = $services->get(AlbumTable::class);
 
+        /* 
+         * Mocking data
+         */
         // Remove database connection for testing
-        unset($config['db']); 
         $config['db'] = [];
+        $this->mockAlbumTable = $this->prophesize(AlbumTable::class);
         
         $services->setAllowOverride(true);
-        $services->setService('config', $config);
+        $services->setService(AlbumTable::class, $this->mockAlbumTable->reveal());
         $services->setAllowOverride(false);
-
-        $this->albumTable = $this->prophesize(AlbumTable::class);
-        $services->setService(AlbumTable::class, $this->albumTable->reveal());
-
-        $services->setAllowOverride(false);
-    }
-
-    protected function updateConfig($config)
-    {
-        $config['db'] = [];
-        return $config;
-    }
-    protected function mockAlbumTable()
-    {
-        $this->albumTable = $this->prophesize(AlbumTable::class);
-        return $this->albumTable;
     }
 
     public function testIndex()
     {
         // Dispatch
-        $this->getRequest()
-            ->setMethod('POST')
-            ->setPost(new Parameters(['argument' => 'value']));
-        $this->dispatch('/album', 'GET', ['action' => 'index']);
+        $this->mockAlbumTable
+            ->fetchAll()
+            ->willReturn([
+                (object)['id'=>'mocked Id', 'artist'=>'mocked Artist', 'title'=>'mocked Title']
+            ]);
+        
+        $this->dispatch(self::ROUTE, 'GET', ['action' => 'index']);
 
         // test
         $this->assertResponseStatusCode(200);
-        $this->assertModuleName('album');
-        $this->assertControllerName('album\controller\indexcontroller');
-        $this->assertControllerClass('IndexController');
-        $this->assertMatchedRouteName('album');
+        $this->assertModuleName(self::MODULE);
+        $this->assertControllerName(self::MODULE.'\controller\albumcontroller');
+        $this->assertControllerClass('AlbumController');
+        $this->assertMatchedRouteName('album-tuto');
 
-        $this->assertQueryContentRegex('table','/Ratke_mocked_value/');
+        $this->assertQueryContentRegex('table tbody','/mocked Artist/');
     }
 
     public function testEditActionAndRedirect()
     {
-        $this->albumTable
+        $this->mockAlbumTable
             ->getAlbum(3)
             ->willReturn(new Album);
         
-        $this->albumTable
-            ->saveAlbum(Argument::type(Album::class))
+        $this->mockAlbumTable
+            ->saveAlbum(\Prophecy\Argument::type(Album::class))
             ->shouldBeCalled();
         
         $postData = [
             'id' => 3,
-            'title'=> 'postedDataMocktitle',
-            'artist' => 'postDataMockartist'
+            'title'=> 'mocked post data title',
+            'artist' => 'mocked post data artist'
         ];
-        $this->dispatch('/album/edit/3', 'POST', $postData);
-        $this->assertResponseStatusCode(302);
-        $this->assertRedirectTo('/album');
+
+        $this->dispatch(self::ROUTE.'/edit/3', 'POST', $postData);
+       // $this->assertResponseStatusCode(302);
+       $this->assertRedirectTo(self::ROUTE);
     }
     
     public function testInitialAlbumValue()
@@ -101,15 +96,18 @@ class AlbumTableTest extends AbstractHttpControllerTestCase
             'artist' => 'someone',
             'title' => 'something'
         ];
+
         $album->exchangeArray($data);
         $this->assertSame(
             $album->title,
             $data['title'],
             'title was not set properly'
         );
+
         $album->exchangeArray([]);
         $this->assertSame($album->title, null);
-        #filter
+
+        // filter
         $filter = $album->getInputFilter();
         $this->assertSame(3, count($filter));
     }
@@ -117,7 +115,7 @@ class AlbumTableTest extends AbstractHttpControllerTestCase
     public function testCreate()
     {
         // dispatch
-        $this->dispatch('/album/create', 'GET');
+        $this->dispatch(self::ROUTE . '/create', 'GET');
 
         // test
         $this->assertResponseStatusCode(200);

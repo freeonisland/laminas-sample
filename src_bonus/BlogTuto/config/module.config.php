@@ -17,7 +17,7 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
-            'album' => [
+            'album-tuto' => [
                 'type'    => Segment::class,
                 'options' => [
                     'route'    => '/album-tuto[/:action[/:id]]',
@@ -31,7 +31,7 @@ return [
                     ],
                 ],
             ],
-            'blog' => [
+            'blog-tuto' => [
                 'type'    => Segment::class,
                 'options' => [
                     'route'    => '/blog-tuto[/:action[/:id]]',
@@ -59,7 +59,7 @@ return [
      */
     'view_manager' => [
         'template_path_stack' => [
-            'album' => __DIR__ . '/../view',
+            __DIR__ . '/../view',
         ],
     ],
 ];

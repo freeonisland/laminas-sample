@@ -2,9 +2,7 @@
 
 <?php $this->headTitle('create') ?>
 
-<?php
-
-
+<?php 
 
 // This provides a default CSS class and placeholder text for the title element:
 $album = $form->get('title');
@@ -20,7 +18,7 @@ $artist->setAttribute('placeholder', 'Artist');
 $submit = $form->get('submit');
 $submit->setAttribute('class', 'btn btn-primary');
 
-$form->setAttribute('action', $this->url('album', ['action' => 'create']));
+$form->setAttribute('action', $this->url('album-tuto', ['action' => 'create']));
 $form->prepare();
 
 echo $this->form()->openTag($form);
@@ -39,19 +37,11 @@ echo $this->form()->openTag($form);
     <?= $this->formElementErrors()->render($artist, ['class' => 'help-block']) ?>
 </div>
 
+<a href="<?=$this->url("album-tuto")?>" class="btn btn-secondary">Back to list</a>
+
 <?php
 echo $this->formSubmit($submit);
-echo $this->formHidden($form->get('id'));
 echo $this->form()->closeTag();
-
-/*echo 
-    $this->form()->openTag($form) .
-    $this->formHidden($form->get('id')) . 
-    $this->formRow($form->get('artist')) .
-    $this->formRow($form->get('title')) .
-    $this->formSubmit($form->get('submit')) . 
-    $this->form()->closeTag();*/
- 
 
 # easier
 //echo $this->formCollection($form);

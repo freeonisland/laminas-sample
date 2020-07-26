@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * Module <<module_name>>
+ */
+
+declare(strict_types=1);
+
+namespace <<module_name>>;
+
+use Laminas\Router\Http\{Literal,Part,Segment};
+use Laminas\ServiceManager\Factory\InvokableFactory;
+
+return [
+    'router' => [
+        'routes' => [
+            '<<lc_module_name>>' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/<<lc_module_name>>',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ]
+        ],
+    ],
+    'controllers' => [
+        'factories' => [
+            Controller\IndexController::class => InvokableFactory::class,
+        ],
+    ],
+    'view_manager' => [
+        'template_path_stack' => [
+            __DIR__ . '/../view',
+        ]
+    ],
+];

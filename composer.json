@@ -17,6 +17,7 @@
     "require": {
         "php": "^7.2",
         "laminas/laminas-cache": "^2.9",
+        "laminas/laminas-cli": "^0.1.1",
         "laminas/laminas-component-installer": "^2.2",
         "laminas/laminas-config": "^3.3",
         "laminas/laminas-config-aggregator": "^1.2",
@@ -24,6 +25,7 @@
         "laminas/laminas-db": "^2.11",
         "laminas/laminas-di": "^3.1",
         "laminas/laminas-form": "^2.15",
+        "laminas/laminas-i18n": "^2.10",
         "laminas/laminas-ldap": "^2.10",
         "laminas/laminas-modulemanager": "^2.8",
         "laminas/laminas-mvc": "^3.1",
@@ -50,14 +52,9 @@
 
             "Application\\": "src/Application/src/",
             "Ldap\\": "src/Ldap/src/",
-            "Soap\\": "src/Soap/src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "ApplicationTest\\": "src/Application/test/",
-            "LdapTest\\": "src/Ldap/test/",
-            "SoapTest\\": "src/Soap/test/"
+            "Soap\\": "src/Soap/src/",
+
+            "LmConsole\\": "clymate/lm-console/src"
         }
     },
     "scripts": {
