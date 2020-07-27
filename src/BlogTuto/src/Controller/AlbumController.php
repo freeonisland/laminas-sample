@@ -45,15 +45,42 @@ class AlbumController extends AbstractActionController
     public function createAction()
     {
         $form = new AlbumForm;
+        $fm = $this->flashMessenger();
 
         $csrf = new \Laminas\Form\Element\Csrf('csrf');
-        $form->add($csrf);
+        $csrf->setCsrfValidatorOptions([
+            'timeout' => 10
+        ]);;
+        $form->add($csrf); #lazy. Get value GENERATE the hash
+
+        /************************
+         * 
+         *  TOKEN CSRF
+         * 
+         *  issue:  SESSION NOT STARTED WHEN DEBUGGING (headers_send = true)
+         *  fix:  manually set session_start();
+         * 
+         *  info: when calling $form->add(new \Laminas\Form\Element\Csrf('csrf')), 
+         *          push $_SESSION EXPIRE more and more
+         *     - ex: 100s, reload page, it become again 100s (and not 98s, etc...)
+         * 
+         */
+
+        $fm->addInfoMessage('Informations provided by FlashMessenger');
 
         $form->get('submit')->setValue($form->get('submit')->getValue() . ' create');
 
         if (!$this->getRequest()->isPost()) {
             return ['form' => $form];
         } 
+
+        //var_dump($csrf->isValid());
+        $validate_csrf = $this->getRequest()->getPost()['csrf'];
+        if($csrf->getCsrfValidator()->isValid($validate_csrf)) {
+            $fm->addMessage('CSRF is valid', 'MY_NS');
+        } else {
+            $fm->addMessage(' - Csrf not valid !');
+        }
 
         $album = new Album;
         $form->setInputFilter($album->getInputFilter());
@@ -68,7 +95,6 @@ class AlbumController extends AbstractActionController
         
         $this->table->saveAlbum($album);
         
-        //return new ViewModel();
         return $this->redirect()->toRoute('album-tuto');
     }
 

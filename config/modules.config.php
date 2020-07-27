@@ -25,6 +25,7 @@ return [
     'Laminas\InputFilter',
     'Laminas\Router',
     'Laminas\Validator',
+    'Laminas\Mvc\Plugin\FlashMessenger',
 
     'LmConsole',
 
