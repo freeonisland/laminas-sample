@@ -27,10 +27,13 @@
         "laminas/laminas-form": "^2.15",
         "laminas/laminas-i18n": "^2.10",
         "laminas/laminas-ldap": "^2.10",
+        "laminas/laminas-math": "^3.2",
         "laminas/laminas-modulemanager": "^2.8",
         "laminas/laminas-mvc": "^3.1",
+        "laminas/laminas-mvc-plugin-flashmessenger": "^1.2",
         "laminas/laminas-permissions-acl": "^2.7",
         "laminas/laminas-servicemanager": "^3.4",
+        "laminas/laminas-session": "^2.9",
         "laminas/laminas-stratigility": "^3.2",
         "laminas/laminas-test": "^3.4"
     },
@@ -47,8 +50,8 @@
     },
     "autoload": {
         "psr-4": {
-            "BlogTuto\\": "src_bonus/BlogTuto/src/",
-            "Crud\\": "src_bonus/Crud/src/",
+            "BlogTuto\\": "src/BlogTuto/src/",
+            "Crud\\": "src/Crud/src/",
 
             "Application\\": "src/Application/src/",
             "Ldap\\": "src/Ldap/src/",
@@ -67,6 +70,7 @@
         ],
         "check": "phpcs",
         "cs": "phpcs",
+        "cover": "phpunit --color=always -vvv --coverage-text - --coverage-html public/cover",
         "fix": "phpcbf",
         "md": "phpmd module text cleancode, codesize, controversial, design, naming, unusedcode",
         "serve": "php -S 0.0.0.0:8080 -t public",

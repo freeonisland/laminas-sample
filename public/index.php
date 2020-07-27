@@ -13,6 +13,10 @@ use Laminas\ModuleManager\ModuleManager;
  */
 chdir(dirname(__DIR__));
 
+function d(...$v){var_dump(...$v);}
+function dd(...$v){d(...$v);die();}
+function m($c){ d(get_class_methods($c));}
+
 /**
  * Easier way
  */
@@ -31,11 +35,10 @@ if (php_sapi_name() === 'cli-server') {
 // Composer autoloading
 include __DIR__ . '/../vendor/autoload.php';
 
-
-function g($c)
-{
-    s(get_class_methods($c));
-}
+/**
+ * Laminas\Session doesn't start if debugging text (header already send)
+ */
+session_start();
 
 /****************
  * Configuration

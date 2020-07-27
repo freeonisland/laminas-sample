@@ -13,6 +13,8 @@
  */
 
 return [
+    'Laminas\Mvc\Plugin\FlashMessenger',
+    'Laminas\Session',
     'Laminas\I18n',
     'Laminas\Cache',
     'Laminas\Db',
@@ -28,5 +30,6 @@ return [
 
     'BlogTuto',
     'Application',
-    'Ldap'
+    //'Ldap',
+    //'Soap'
 ];
