@@ -31,6 +31,7 @@ class ConfigProvider
                         $dbAdapter = $container->get(AdapterInterface::class);
                         $resultSetPrototype = new ResultSet;
                         $resultSetPrototype->setArrayObjectPrototype(new Model\Album);
+
                         return new Table\AlbumTable(
                             'album', $dbAdapter, null, $resultSetPrototype
                         );

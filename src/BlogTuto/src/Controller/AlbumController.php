@@ -28,13 +28,6 @@ class AlbumController extends AbstractActionController
         $this->table = $table;
     }
 
-    public function fixtureAction()
-    {
-        \BlogTuto\Fixture\TableSchema::createTable();
-        \BlogTuto\Fixture\AlbumFixture::load();
-        \BlogTuto\Fixture\BlogFixture::load();
-    }
-
     public function indexAction()
     {
         return new ViewModel([
@@ -93,8 +86,8 @@ class AlbumController extends AbstractActionController
 
         $album->exchangeArray($form->getData());
         
-        $this->table->saveAlbum($album);
-        
+        $r = $this->table->saveAlbum($album);
+    
         return $this->redirect()->toRoute('album-tuto');
     }
 
@@ -106,7 +99,7 @@ class AlbumController extends AbstractActionController
         if (0 === $id) {
             return $this->redirect()->toRoute('album-tuto', ['action' => 'add']);
         }
-
+        
         // Retrieve the album with the specified id. Doing so raises
         // an exception if the album is not found, which should result
         // in redirecting to the landing page.

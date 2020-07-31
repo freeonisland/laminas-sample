@@ -14,7 +14,7 @@ class AlbumTableTest extends AbstractHttpControllerTestCase
 {
     protected $traceError = true;
 
-    const MODULE = 'blogtuto';
+    const MODULE = 'BlogTuto';
     const ROUTE = '/album-tuto';
 
     public function setUp(): void
@@ -25,14 +25,14 @@ class AlbumTableTest extends AbstractHttpControllerTestCase
         parent::setUp();
 
         $services = $this->getApplicationServiceLocator();
-        $config = $services->get('config');
+        //$config = $services->get('config');
         $this->albumTable = $services->get(AlbumTable::class);
 
         /* 
          * Mocking data
          */
         // Remove database connection for testing
-        $config['db'] = [];
+        //$config['db'] = [];
         $this->mockAlbumTable = $this->prophesize(AlbumTable::class);
         
         $services->setAllowOverride(true);
@@ -54,7 +54,7 @@ class AlbumTableTest extends AbstractHttpControllerTestCase
         // test
         $this->assertResponseStatusCode(200);
         $this->assertModuleName(self::MODULE);
-        $this->assertControllerName(self::MODULE.'\controller\albumcontroller');
+        $this->assertControllerName(self::MODULE.'\Controller\AlbumController');
         $this->assertControllerClass('AlbumController');
         $this->assertMatchedRouteName('album-tuto');
 
