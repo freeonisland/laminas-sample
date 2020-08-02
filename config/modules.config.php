@@ -29,8 +29,10 @@ return [
 
     'LmConsole',
 
-    'BlogTuto',
     'Application',
+    'BlogTuto',
+    'Event',
+    'Service'
     //'Ldap',
     //'Soap'
 ];

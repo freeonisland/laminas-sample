@@ -36,17 +36,20 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
-                        <li class="nav-item active nav-link font-italic">
-                            tutos: -
+                        <li class="nav-item active font-italic">
+                            <a class="nav-link" href="<?= $this->url('album-tuto') ?>"><u>Album tuto</u><span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active font-italic">
-                            <a class="nav-link" href="<?= $this->url('album-tuto') ?>">Album<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item active font-italic">
-                            <a class="nav-link" href="<?= $this->url('blog-tuto') ?>">Blog<span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="<?= $this->url('blog-tuto') ?>"><u>Blog tuto</u><span class="sr-only">(current)</span></a>
                         </li> 
                         <li class="nav-item active nav-link font-italic">
                            -
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="<?=$this->url('event') ?>">Event <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="<?=$this->url('service') ?>">Service <span class="sr-only">(current)</span></a>
                         </li>
                         <!--li class="nav-item active">
                             <a class="nav-link" href="<? //=$this->url('ldap') ?>">Ldap <span class="sr-only">(current)</span></a>

@@ -1,0 +1,67 @@
+
+********* subject   
+
+Implementing simple subject/observer patterns.
+Implementing Aspect-Oriented designs.
+Implementing event-driven architectures.
+
+
+***************
+* INFOS
+***************
+
+- trigger until (short circuit)
+- wildcard (*) attach all events
+- priority
+- return a ResponseCollection (stack: first, last, contains)
+
+EventManager : 
+    aggregates listeners for one or more named events
+    -> triggers events.
+
+SharedEventManager : 
+    describes an object that aggregates listeners for events attached to objects (with specific identifiers)
+    It does not trigger events itself.
+
+ListenerAggregate :
+    listening to multiple events 
+
+
+
+
+
+
+
+
+
+******* more
+
+(EM capable inerterface): expose
+    getEventManager
+
+(EM aware interface): include
+    setEventManager
+
+(List aggregate): elements Aw+Cap
+    attach, detach
+
+eventManager
+    trigger, triggerUntil, triggerEvent, triggerEventUntil
+    attach, detach, clearListeners
+    getIdentifiers, setIdentifiers
+
+sharedEventManager
+    attach, detach
+    getListeners, clearListeners
+
+event
+    getName, getTarget, getParams
+    stopPropagation, propagationIsStopped
+
+     
+**************
+POO
+
+composition: include inside  (delete composition, delete elements)
+aggregation: include virtual (delete only aggregation, not elements)
+**************

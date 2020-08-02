@@ -1,0 +1,35 @@
+//$s->get('log')->tryService();
+
+       // $events->trigger('my_Event2987', $my_event);
+       // d($events->getIdentifiers());
+       // $events->trigger('debug', null, ['param2']);
+
+        //$events->detach($l1);
+       // $events->trigger('my_event', null, ['param3']);
+
+       // d($this->getEvent());
+     //   $mvcEvent = $this->getEvent();
+       // dm($this->getEvent());
+
+
+       /*$sharedEvents = new SharedEventManager;
+        $sharedEvents->attach(Ex::class, 'inside', $l1);
+
+        $ex = new ExCache;
+        
+        // As of version 3:
+        $ex->setEventManager(new EventManager($sharedEvents));
+
+        // Both versions:
+        $ex->doIt('plofcache', 'wizcache');
+
+        $ex = new Ex;
+        
+        // As of version 3:
+        $ex->setEventManager(new EventManager($sharedEvents));
+
+        // Both versions:
+        $ex->doIt('plof', 'wiz');*/
+
+       // $se = new EventManager($sharedEvents);
+        //$se->trigger('do', null, ['param2']);

@@ -1,0 +1,19 @@
+
+##########
+# Create one spec by module
+##########
+
+suites:
+    module_event:
+        namespace: 'Event'
+        psr4_prefix: 'Event'
+        spec_path: src/Event
+        spec_prefix: spec
+        src_path: src/Event/src
+
+    module_service:
+        namespace: 'Service'
+        psr4_prefix: 'Service'
+        spec_path: src/Service
+        spec_prefix: spec
+        src_path: src/Service/src

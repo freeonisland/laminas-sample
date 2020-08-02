@@ -50,14 +50,14 @@
     },
     "autoload": {
         "psr-4": {
-            "BlogTuto\\": "src/BlogTuto/src/",
-            "Crud\\": "src/Crud/src/",
-
             "Application\\": "src/Application/src/",
-            "Ldap\\": "src/Ldap/src/",
-            "Soap\\": "src/Soap/src/",
+            "BlogTuto\\": "src/BlogTuto/src/",
+            "LmConsole\\": "clymate/lm-console/src",
 
-            "LmConsole\\": "clymate/lm-console/src"
+            "Event\\": "src/Event/src/",
+            "Ldap\\": "src/Ldap/src/",
+            "Service\\":"src/Service/src/",
+            "Soap\\": "src/Soap/src/"
         }
     },
     "scripts": {
