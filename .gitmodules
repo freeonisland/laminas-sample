@@ -1,0 +1,4 @@
+[submodule "src/lm-console"]
+	path = src/lm-console
+	url = git@github.com:clymate/lm-console
+	branch = dev
