@@ -52,7 +52,7 @@
         "psr-4": {
             "Application\\": "src/Application/src/",
             "BlogTuto\\": "src/BlogTuto/src/",
-            "LmConsole\\": "clymate/lm-console/src",
+            "LmConsole\\": "src/lm-console/src",
 
             "Event\\": "src/Event/src/",
             "Ldap\\": "src/Ldap/src/",
