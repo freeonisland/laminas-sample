@@ -10,7 +10,7 @@ FROM php:7.4-fpm
 
 # apt-get
 RUN apt-get update && ENV_DOCKER_UNIQ_TOKEN=8b6fh817b86761dg681d
-RUN apt-get install -y sqlite3 wget git zip 
+RUN apt-get install -y sqlite3 wget zip 
 
 # php ext: ldap...
 RUN apt-get install -y libldap2-dev
