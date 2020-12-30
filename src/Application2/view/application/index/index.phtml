@@ -1,0 +1,70 @@
+<?php
+/**
+ * @var Laminas\View\Renderer\PhpRenderer $this
+ */
+?>
+
+<div class="card-deck">
+    <div id="servers" class="card">
+        <!--div class="card-body">
+            <b>Servers (live)</b>
+            <ul>
+                <li>Mongo [OK]</li>    
+                <li>Php [OK]</li> 
+                <li>Api [OK]</li> 
+            </ul>
+        </div-->
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <b>Products (Api Soap-mongo)</b>
+            <ul>
+                <li><a href="#">product</a> +/-</li>    
+                <li><a href="#">product2</a> +/-</li> 
+                <li><a href="#">product3</a> +/-</li> 
+            </ul>
+            <a class="btn" href="" target="_blank">Create &raquo;</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <b>Users (mongo)</b>
+            <ul>
+                <li><a href="#">alpha</a> (connect)</li>    
+                <li><a href="#">beta</a></li> 
+                <li><a href="#">gamma</a></li> 
+            </ul>
+
+            <a class="btn" href="" target="_blank">New &raquo;</a>
+            [<a class="btn" href="" target="_blank">Login/out &raquo;</a>]
+        </div>
+    </div>
+</div>
+
+
+<!--
+    log
+-->
+<div class="card-deck">
+    <div class="card">
+        <div class="card-body">
+            <b>Log (live)</b>
+            <ul>
+                <li>
+                    <b>prod</b>
+                    <fieldset class="border">dfdghjgjdgjg</fieldset>
+                    <b>mongo</b>
+                    <fieldset class="border">dfdghjgjdgjg</fieldset>
+                    <b>php</b>
+                    <fieldset class="border">dfdghjgjdgjg</fieldset>
+                </li>    
+            </ul>
+        </div>
+    </div>
+</div>
+
+<?= $this->inlineScript()
+           ->prependFile($this->basePath('js/script.js')) 
+        ?>

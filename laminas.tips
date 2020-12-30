@@ -1,0 +1,19 @@
+# LmConsole
+- unzip from github
+- add to project composer.json
+- set module.config.php
+- composer dump-autoload
+
+# Auto-DI
+Automatic
+
+# Auto controller router
+
+# Abstract factory
+- in global.php
+- use Laminas\Mvc\Controller\LazyControllerAbstractFactory;
+- 'controllers' => [ 'abstract_factories' => [ LazyControllerAbstractFactory::class ] ]
+
+# Files upload needs to work with $_FILES (with $request->getFiles())
+
+# View manager - 'ViewJsonStrategy' work only with View\JsonModel

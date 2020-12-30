@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS `Model` (
+    `id_model` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `country` TEXT,
+    `price` REAL,
+    `json` TEXT,
+    `date` DATETIME DEFAULT CURRENT_TIMESTAMP
+); 

@@ -1,0 +1,65 @@
+# docker-compose-fpm.yml
+version: "3"
+
+services:
+    ###############
+    # PHP-FPM
+    ################
+    fpm:
+        build: .docker/df/fpm 
+        restart: always
+        environment:
+            MYSQL_URL: mysql:host=mysql;port=3306;dbname=mydb
+            SQLITE_URL: sqlite:/sqlite/sqdb.sqlite
+            DB_USER: user
+            DB_PASS: pass
+        ports:
+            - 9001:9000
+        volumes: 
+            # php
+            - /TMAID/.docker/conf/fpm/:/etc/php/7.4/
+            - /TMAID/.docker/conf/fpm/mods-available/:/etc/php/7.4/fpm/conf.d/:ro
+            - /TMAID/.docker/conf/fpm/mods-available/:/etc/php/7.4/cli/conf.d/:ro
+
+            # working dir
+            - /TMAID/base/:/var/www/
+            - /TMAID/base-api/:/var/www-api/
+
+            # sqlite
+            - /TMAID/.data/sqlite/:/sqlite/
+        working_dir: /var/www
+        networks:
+            - web
+
+    sw:
+        # docker exec -d sw "php -f /var/www-sw/server.php"
+        build: .docker/df/fpm 
+        container_name: sw
+        restart: always
+        environment:
+            SQLITE_URL: sqlite:/sqlite/sqdb.sqlite
+            DB_USER: user
+            DB_PASS: pass
+        ports:
+            - 85:9501
+        volumes: 
+            # php
+            - /TMAID/.docker/conf/fpm/:/etc/php/7.4/
+            - /TMAID/.docker/conf/fpm/mods-available/:/etc/php/7.4/fpm/conf.d/:ro
+            - /TMAID/.docker/conf/fpm/mods-available/:/etc/php/7.4/cli/conf.d/:ro
+
+            # working dir
+            - /TMAID/base-sw/:/var/www-sw/
+
+            # sqlite
+            - /TMAID/.data/sqlite/:/sqlite/
+        expose:
+            - 9501
+        working_dir: /var/www-sw
+        command: /bin/bash -c "php /var/www-sw/server.php"
+        networks:
+            - web
+    
+# docker network create web
+networks: 
+    web:

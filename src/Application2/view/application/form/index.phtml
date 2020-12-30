@@ -1,0 +1,32 @@
+
+<h2>form</h2>
+
+<div class="text-success border border-success p-2"><?= $userMsg ?? '' ?></div>
+
+<?php
+    $this->userForm->prepare()
+        ->setAttribute('action', $this->url('controller_aliases', ['controller' => 'form']))
+        ->setAttribute('method', 'post');
+
+    echo "<fieldset class='border p-2'><legend>User form</legend>" . 
+        $this->form()->openTag($this->userForm) .
+        $this->formCollection($this->userForm) .
+        //'<img src="/'.($this->userForm->getData()['f']['name']??'').'"/>' . 
+        $this->form()->closeTag() . 
+        "</fieldset>";
+?>
+
+<br/><br/><br/>
+
+<div class="text-success border border-success p-2"><?= $sampleMsg ?? '' ?></div>
+<?php
+    $this->sampleForm->prepare()
+        ->setAttribute('action', $this->url('controller_aliases', ['controller' => 'form']))
+        ->setAttribute('method', 'post');
+
+    echo "<fieldset class='border p-2'><legend>Sample form</legend>" . 
+        $this->form()->openTag($this->sampleForm) .
+        $this->formCollection($this->sampleForm) .
+        $this->form()->closeTag() . 
+        "</fieldset>";
+?>

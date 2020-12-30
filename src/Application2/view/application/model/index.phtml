@@ -1,0 +1,17 @@
+
+<table>
+<thead>
+    <th>Id </th>
+    <th>Country </th>
+    <th>Price </th>
+    <th>Json </th>
+</thead>
+<?php foreach ($data as $d):  ?>
+    <tr>
+        <td><?= $d['idModel'] // using underscore strategy ?></td>
+        <td><?= $d['country'] ?></td>
+        <td><?= $d['price'] ?></td>
+        <td><?= trim(implode('-',$d['json']),'"') ?></td>
+    </tr>
+<?php endforeach ?>
+</table>

@@ -1,0 +1,21 @@
+<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://192.168.99.100:82/soap/server">
+   <soapenv:Header>
+   <ser:Header soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+    <header xsi:type="soapenc:Array" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+       <!--You may enter ANY elements at this point-->
+    <!--Set custom properties-->
+      
+<ser:0><key>Username</key><value>${#TestSuite#Username}</value></ser:0>
+
+<ser:1><key>Password</key><value>${#TestSuite#Password}</value></ser:1>
+
+    </header>
+   </ser:Header>
+
+   </soapenv:Header>
+   <soapenv:Body>
+      <ser:getMessage soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+         <strNom xsi:type="xsd:string">?</strNom>
+      </ser:getMessage>
+   </soapenv:Body>
+</soapenv:Envelope>

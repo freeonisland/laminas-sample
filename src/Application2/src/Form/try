@@ -1,0 +1,147 @@
+
+
+
+
+
+// override validation group
+        //$form->setValidationGroup('name');
+
+        //$filterName = new \Laminas\InputFilter\InputFilter();
+        /*$inputFilter->add([
+            'my_textarea' => [ //'my_name',
+                'required' => true,
+                'validators' => [
+                    [
+                        'name' => 'Laminas\\Validator\\StringLength',
+                        'options' => [
+                            'min' => 3,
+                            'max' => 20
+                        ]
+                    ]
+                ]
+            ]
+        ]);*/
+        
+       
+        /**
+         * Validating Filedset
+         */
+        // textarea element filter
+        /*$filterTA = new \Laminas\InputFilter\InputFilter();
+        $filterTA->add([
+            'name' => 'short_length_validate',
+            'required' => true,
+            'validators' => [
+                [
+                    'name' => 'Laminas\\Validator\\StringLength',
+                    'options' => [
+                        'min' => 3,
+                        'max' => 8
+                    ]
+                ]
+            ]
+        ]);*/
+        /*$email = new \Laminas\InputFilter\Input('my_email');
+        $email->getValidatorChain()
+            ->attach(new \Laminas\Validator\EmailAddress());
+
+        $txt = new \Laminas\InputFilter\Input('my_textarea');
+        $txt->getValidatorChain()
+                ->attach(new \Laminas\Validator\StringLength(4));*/
+
+        //$f = $form->getFieldsets()['my_field2'];
+        //$e = $f->getElements()['my_textarea'];
+        //m($f);
+
+        // form filter
+        
+        
+       // m($inputFilter->getInputs()['my_email_field']); 
+       // $fac = new \Laminas\InputFilter\Factory();
+        /*$if = $fac->createInputFilter([
+            'my_textarea' => [
+                'name'              => 'my_textarea',
+                'allow_empty'       => true,
+                'validators'        => [
+                    [
+                        'name' => "\Laminas\Validator\StringLength",
+                        'options' => [
+                            'min' => 4
+                        ]
+                    ],
+                ],
+                
+                'fallback_value'    => 1
+            ]
+        ]);*
+        $if->add($ta);*/
+
+       // $input_manuel = new \Laminas\InputFilter\InputFilter;
+       
+      
+       //$inputFilter->add($ta);
+
+       /* $field->setFactory(
+            $fac
+        );*/
+      //  d($inputFilter->getInputs()['my_email_field']->getFactory());
+
+       // $inputFilter->add($email);
+        //$inputFilter->add($txt);
+
+        //$inputFilter->add($filterName, 'my_name');
+        //$inputFilter->add($txt);
+
+        // assign global filter to fieldset name
+       // $g_filter = new \Laminas\InputFilter\InputFilter();
+        //$g_filter = $form->getInputFilter();
+        //$g_filter->add($filterName, 'my_name');
+        //$g_filter->add($filterTA, 'my_email_field');
+
+        // assign global filter to form
+        //$form->setInputFilter($inputFilter);
+
+          //$form2->setInputFilter($globalFilter);
+        /**
+         * *********************************
+         */
+        
+
+
+        /*
+         * textarea with input->validatorchain->validator
+         */
+
+        //$fieldFilter = $inputFilter->getInputs()['my_field2'];
+        //$taInput = $fieldFilter->get('my_textarea');
+
+        // Attach a validator directly to the element
+        /*$taInput->getValidatorChain()->attach(
+            new \Laminas\Validator\StringLength(5)
+        );*/
+
+       /* $taFilter = new \Laminas\InputFilter\InputFilter();
+        $taFilter->add([
+            'my_textarea' => [ 
+                'required' => true,
+                'validators' => [
+                    [
+                        'name' => 'Laminas\\Validator\\StringLength',
+                        'options' => [
+                            'min' => 3,
+                            'max' => 20
+                        ]
+                    ]
+                ]
+            ]
+        ], 'my_textarea');*/
+
+       /* $form->getInputFilter()
+            ->getInputs()['my_field2']
+            ->add($taFilter);*/
+
+        /*
+         * textarea 
+         */
+        //$fieldFilter->add($taInput);
+        //$form->getInputFilter()->add($fieldFilter, 'my_textarea');

@@ -22,7 +22,36 @@ return [
             LazyControllerAbstractFactory::class,
         ]
     ],
+
+    //DI
+    'dependencies' => [
+        'auto' => [
+            "types" => [
+                \Application\Model\AccessLogTable::class => [ // extended from TableGateway
+                    "parameters" => [
+                        'table' => 'AccessLog',
+                        'adapter' => 'BlobAdapter', 
+                        'features' => null,
+                        'resultSetPrototype' => \Laminas\Db\ResultSet\ResultSet::class
+                    ]
+                ]
+            ]
+        ],
+    ],
+
+    'service_manager' => [
+        'factories' => [
+            'BlobAdapter' => AdapterAbstractServiceFactory::class,
+        ]
+    ],
+
     'db' => [
-        'driver' => 'Pdo_Sqlite'
+        'adapters' => [
+            'BlobAdapter' => [
+                'driver' => 'Pdo_Sqlite',
+                "dsn" => "sqlite::memory:",
+            ],
+        ]
+        //'driver' => 'Pdo_Sqlite'
     ]
 ];

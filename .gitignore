@@ -5,3 +5,4 @@ data/cache/*
 !data/cache/.gitkeep
 *.cache
 public/cover
+*local*
